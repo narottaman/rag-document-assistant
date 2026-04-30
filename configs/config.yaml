@@ -1,0 +1,16 @@
+wandb:
+  project: "rag-document-assistant"
+  entity: "ngangada"
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  chunk_size: 512
+  chunk_overlap: 50
+
+retriever:
+  top_k: 5
+
+llm:
+  model: "gpt-4o-mini"
+  temperature: 0.0
+  max_tokens: 1024
