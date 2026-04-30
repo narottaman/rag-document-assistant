@@ -1,0 +1,31 @@
+program: scripts/run_experiment.py
+method: grid
+metric:
+  name: context_recall
+  goal: maximize
+
+parameters:
+  chunking_method:
+    values:
+      - fixed
+      - sentence
+      - paragraph
+      - semantic
+      - hybrid
+
+  index_type:
+    values:
+      - flat
+      - hnsw
+      - faiss
+
+  embedding_model:
+    values:
+      - sentence-transformers/all-MiniLM-L6-v2
+      - BAAI/bge-small-en-v1.5
+
+  top_k:
+    values:
+      - 3
+      - 5
+      - 10

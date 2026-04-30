@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Attention Is All You Need",
+    "arxiv_id": "1706.03762"
+  },
+  {
+    "title": "BERT",
+    "arxiv_id": "1810.04805"
+  },
+  {
+    "title": "GPT-3",
+    "arxiv_id": "2005.14165"
+  },
+  {
+    "title": "Deep Residual Learning",
+    "arxiv_id": "1512.03385"
+  },
+  {
+    "title": "Adam Optimizer",
+    "arxiv_id": "1412.6980"
+  },
+  {
+    "title": "GANs",
+    "arxiv_id": "1406.2661"
+  },
+  {
+    "title": "DALL-E 2",
+    "arxiv_id": "2204.06125"
+  },
+  {
+    "title": "Stable Diffusion",
+    "arxiv_id": "2112.10752"
+  },
+  {
+    "title": "LoRA",
+    "arxiv_id": "2106.09685"
+  },
+  {
+    "title": "LLaMA",
+    "arxiv_id": "2302.13971"
+  }
+]
