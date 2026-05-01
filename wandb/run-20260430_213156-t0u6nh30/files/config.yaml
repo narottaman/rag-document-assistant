@@ -1,0 +1,67 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            xk2by75w4m0rdro0xwrik34ph771doq4:
+                args:
+                    - --chunking_method
+                    - fixed
+                    - --index_type
+                    - flat
+                    - --top_k
+                    - "5"
+                codePath: scripts/run_experiment.py
+                codePathLocal: scripts/run_experiment.py
+                cpu_count: 8
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "137369751552"
+                        used: "78108553216"
+                email: ngangada@asu.edu
+                executable: /home/ngangada/.venv/bin/python
+                git:
+                    commit: 07a3bf3e500699cf49e47eb6a933095b3dae1127
+                    remote: https://narottaman:@github.com/narottaman/rag-document-assistant.git
+                host: sol-login02
+                memory:
+                    total: "33149075456"
+                os: Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28
+                program: /scratch/ngangada/portfolio/rag-document-assistant/scripts/run_experiment.py
+                python: CPython 3.10.18
+                root: /scratch/ngangada/portfolio/rag-document-assistant
+                startedAt: "2026-05-01T04:31:56.233952Z"
+                writerId: xk2by75w4m0rdro0xwrik34ph771doq4
+        m: []
+        python_version: 3.10.18
+        t:
+            "2":
+                - 1
+                - 5
+                - 11
+                - 41
+                - 49
+                - 51
+                - 53
+                - 71
+                - 75
+                - 92
+                - 98
+                - 105
+            "3":
+                - 13
+                - 16
+            "4": 3.10.18
+            "5": 0.26.1
+            "8":
+                - 2
+            "12": 0.26.1
+            "13": linux-x86_64
+chunking_method:
+    value: fixed
+embedding_model:
+    value: sentence-transformers/all-MiniLM-L6-v2
+index_type:
+    value: flat
+top_k:
+    value: 5

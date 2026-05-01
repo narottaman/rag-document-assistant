@@ -1,0 +1,10 @@
+wandb_version: 1
+
+chunking_method:
+  value: sentence
+embedding_model:
+  value: sentence-transformers/all-MiniLM-L6-v2
+index_type:
+  value: flat
+top_k:
+  value: 10

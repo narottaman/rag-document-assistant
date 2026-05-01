@@ -1,0 +1,59 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            trtlpw7f459o4l4z727envil1z6mr74l:
+                args:
+                    - --method
+                    - sentence
+                codePath: scripts/run_ingest.py
+                codePathLocal: scripts/run_ingest.py
+                cpu_count: 8
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "137369751552"
+                        used: "78576263168"
+                email: ngangada@asu.edu
+                executable: /home/ngangada/.venv/bin/python
+                git:
+                    commit: 07a3bf3e500699cf49e47eb6a933095b3dae1127
+                    remote: https://narottaman:@github.com/narottaman/rag-document-assistant.git
+                host: sol-login02
+                memory:
+                    total: "33149075456"
+                os: Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28
+                program: /scratch/ngangada/portfolio/rag-document-assistant/scripts/run_ingest.py
+                python: CPython 3.10.18
+                root: /scratch/ngangada/portfolio/rag-document-assistant
+                startedAt: "2026-05-01T02:19:47.536910Z"
+                writerId: trtlpw7f459o4l4z727envil1z6mr74l
+        m: []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 5
+                - 53
+            "2":
+                - 5
+                - 53
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.10.18
+            "5": 0.26.1
+            "8":
+                - 2
+            "10":
+                - 20
+            "12": 0.26.1
+            "13": linux-x86_64
+chunk_method:
+    value: sentence
+overlap_sentences:
+    value: 1
+pdf_dir:
+    value: data/raw/pdfs
+sentences_per_chunk:
+    value: 5

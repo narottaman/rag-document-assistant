@@ -1,3 +1,5 @@
+project: rag-document-assistant
+entity: ngangada-arizona-state-university
 program: scripts/run_experiment.py
 method: grid
 metric:
@@ -10,14 +12,13 @@ parameters:
       - fixed
       - sentence
       - paragraph
-      - semantic
-      - hybrid
+#      - semantic
+#      - hybrid
 
   index_type:
     values:
       - flat
       - hnsw
-      - faiss
 
   embedding_model:
     values:

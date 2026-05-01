@@ -1,0 +1,56 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            outfgphk8mdjkscdz9nta7hphdo7xkst:
+                args:
+                    - --chunking_method
+                    - fixed
+                    - --index_type
+                    - hnsw
+                    - --top_k
+                    - "5"
+                codePath: scripts/run_experiment.py
+                codePathLocal: scripts/run_experiment.py
+                cpu_count: 8
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "137369751552"
+                        used: "78692073472"
+                email: ngangada@asu.edu
+                executable: /home/ngangada/.venv/bin/python
+                git:
+                    commit: 07a3bf3e500699cf49e47eb6a933095b3dae1127
+                    remote: https://narottaman:@github.com/narottaman/rag-document-assistant.git
+                host: sol-login02
+                memory:
+                    total: "33149075456"
+                os: Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28
+                program: /scratch/ngangada/portfolio/rag-document-assistant/scripts/run_experiment.py
+                python: CPython 3.10.18
+                root: /scratch/ngangada/portfolio/rag-document-assistant
+                startedAt: "2026-05-01T06:06:00.137421Z"
+                writerId: outfgphk8mdjkscdz9nta7hphdo7xkst
+        m: []
+        python_version: 3.10.18
+        t:
+            "2":
+                - 49
+            "3":
+                - 13
+                - 16
+            "4": 3.10.18
+            "5": 0.26.1
+            "8":
+                - 2
+            "12": 0.26.1
+            "13": linux-x86_64
+chunking_method:
+    value: fixed
+embedding_model:
+    value: sentence-transformers/all-MiniLM-L6-v2
+index_type:
+    value: hnsw
+top_k:
+    value: 5

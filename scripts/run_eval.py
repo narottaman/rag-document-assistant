@@ -11,7 +11,27 @@ Usage:
     # Evaluate all saved chunk methods against flat index (quick comparison)
     python scripts/run_eval.py --all
 """
+# Point RAGAS to Gemini instead of OpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from ragas import evaluate
+from ragas.llms import LangchainLLMWrapper
+from ragas.embeddings import LangchainEmbeddingsWrapper
 
+ragas_llm = LangchainLLMWrapper(ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    google_api_key=os.environ["GOOGLE_API_KEY"]
+))
+ragas_embeddings = LangchainEmbeddingsWrapper(GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=os.environ["GOOGLE_API_KEY"]
+))
+
+scores = evaluate(
+    dataset,
+    metrics=[faithfulness, answer_relevancy, context_recall],
+    llm=ragas_llm,
+    embeddings=ragas_embeddings,
+)
 import os
 import sys
 import json

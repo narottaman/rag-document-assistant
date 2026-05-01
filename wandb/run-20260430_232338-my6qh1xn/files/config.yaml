@@ -1,0 +1,114 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            08jm2e8yy4ak9cxjog9ngmtbld41i9vj:
+                args:
+                    - --chunking_method=sentence
+                    - --embedding_model=sentence-transformers/all-MiniLM-L6-v2
+                    - --index_type=hnsw
+                    - --top_k=3
+                codePath: scripts/run_experiment.py
+                codePathLocal: scripts/run_experiment.py
+                cpu_count: 48
+                cpu_count_logical: 48
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "119830216704"
+                        used: "17682505728"
+                email: ngangada@asu.edu
+                executable: /home/ngangada/.venv/bin/python
+                git:
+                    commit: 07a3bf3e500699cf49e47eb6a933095b3dae1127
+                    remote: https://narottaman:@github.com/narottaman/rag-document-assistant.git
+                gpu: NVIDIA A100-SXM4-80GB
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 6912
+                      memoryTotal: "85899345920"
+                      name: NVIDIA A100-SXM4-80GB
+                      uuid: GPU-c4f327bf-2294-44b3-f2e3-a3d8617e1d75
+                host: sg035
+                memory:
+                    total: "540627030016"
+                os: Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28
+                program: /scratch/ngangada/portfolio/rag-document-assistant/scripts/run_experiment.py
+                python: CPython 3.10.18
+                root: /scratch/ngangada/portfolio/rag-document-assistant
+                slurm:
+                    cluster_name: sol
+                    conf: /var/spool/slurmd/conf-cache/slurm.conf
+                    cpus_on_node: "16"
+                    cpus_per_task: "16"
+                    export_env: NONE
+                    get_user_env: "1"
+                    gpus_on_node: "1"
+                    gtids: "0"
+                    job_account: grp_cbaral
+                    job_cpus_per_node: "16"
+                    job_end_time: "1777617762"
+                    job_gid: "99999937"
+                    job_gpus: "2"
+                    job_id: "52042656"
+                    job_name: sweep_job.slurm
+                    job_nodelist: sg035
+                    job_num_nodes: "1"
+                    job_partition: public
+                    job_qos: public
+                    job_start_time: "1777615962"
+                    job_uid: "3088253"
+                    job_user: ngangada
+                    jobid: "52042656"
+                    localid: "0"
+                    mem_per_node: "65536"
+                    nnodes: "1"
+                    nodeid: "0"
+                    nodelist: sg035
+                    oom_kill_step: "0"
+                    prio_process: "0"
+                    procid: "0"
+                    script_context: prolog_task
+                    submit_dir: /scratch/ngangada/portfolio/rag-document-assistant
+                    submit_host: sol-login02
+                    task_pid: "958325"
+                    tasks_per_node: "1"
+                    topology_addr: sg035
+                    topology_addr_pattern: node
+                    tres_per_task: cpu=16
+                startedAt: "2026-05-01T06:23:38.857102Z"
+                writerId: 08jm2e8yy4ak9cxjog9ngmtbld41i9vj
+        m: []
+        python_version: 3.10.18
+        t:
+            "2":
+                - 1
+                - 5
+                - 11
+                - 41
+                - 49
+                - 51
+                - 53
+                - 71
+                - 75
+                - 98
+            "3":
+                - 2
+                - 13
+                - 14
+                - 16
+            "4": 3.10.18
+            "5": 0.26.1
+            "8":
+                - 2
+            "12": 0.26.1
+            "13": linux-x86_64
+chunking_method:
+    value: sentence
+embedding_model:
+    value: sentence-transformers/all-MiniLM-L6-v2
+index_type:
+    value: hnsw
+top_k:
+    value: 3

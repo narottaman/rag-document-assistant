@@ -1,0 +1,10 @@
+wandb_version: 1
+
+chunking_method:
+  value: fixed
+embedding_model:
+  value: BAAI/bge-small-en-v1.5
+index_type:
+  value: flat
+top_k:
+  value: 3

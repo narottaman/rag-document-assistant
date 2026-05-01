@@ -1,0 +1,36 @@
+{
+  "os":  "Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "python":  "CPython 3.10.18",
+  "startedAt":  "2026-05-01T04:31:56.233952Z",
+  "args":  [
+    "--chunking_method",
+    "fixed",
+    "--index_type",
+    "flat",
+    "--top_k",
+    "5"
+  ],
+  "program":  "/scratch/ngangada/portfolio/rag-document-assistant/scripts/run_experiment.py",
+  "codePath":  "scripts/run_experiment.py",
+  "codePathLocal":  "scripts/run_experiment.py",
+  "git":  {
+    "remote":  "https://narottaman:@github.com/narottaman/rag-document-assistant.git",
+    "commit":  "07a3bf3e500699cf49e47eb6a933095b3dae1127"
+  },
+  "email":  "ngangada@asu.edu",
+  "root":  "/scratch/ngangada/portfolio/rag-document-assistant",
+  "host":  "sol-login02",
+  "executable":  "/home/ngangada/.venv/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "137369751552",
+      "used":  "78108553216"
+    }
+  },
+  "memory":  {
+    "total":  "33149075456"
+  },
+  "writerId":  "xk2by75w4m0rdro0xwrik34ph771doq4"
+}

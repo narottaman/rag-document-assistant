@@ -1,14 +1,15 @@
 """
 scripts/generate_eval.py
 
-Generates ground-truth Q&A pairs from chunked ArXiv PDFs using GPT-4o-mini.
-Saves to data/eval/qa_pairs.json
-
-Also filters the neural-bridge/rag-dataset-12000 HF dataset
-and saves a subset to data/eval/hf_qa_subset.json
+Generates ground-truth Q&A pairs from chunked ArXiv PDFs using Gemini Flash.
+Uses new google-genai SDK (not deprecated google.generativeai).
 
 Usage:
-    python scripts/generate_eval.py --n-questions 60 --chunker hybrid
+    export GOOGLE_API_KEY=your-key
+    python scripts/generate_eval.py \
+        --chunks-path data/processed/chunks_paragraph.json \
+        --out-path data/eval/qa_pairs_arxiv.json \
+        --n-questions 60
 """
 
 import os
@@ -16,15 +17,11 @@ import json
 import time
 import argparse
 from pathlib import Path
-from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Q&A Generation from ArXiv PDF chunks
-# ─────────────────────────────────────────────────────────────────────────────
+GEMINI_MODEL = "gemini-2.0-flash"
 
 SYSTEM_PROMPT = """You are an expert at creating evaluation datasets for RAG systems.
 Given a text chunk from an academic paper, generate ONE factual question whose answer
@@ -34,24 +31,33 @@ Respond ONLY with valid JSON — no markdown, no preamble:
 {"question": "...", "answer": "...", "chunk_id": <id>}"""
 
 
-def generate_qa_from_chunk(client: OpenAI, chunk: dict, retries: int = 3) -> dict | None:
+def get_gemini_client():
+    try:
+        from google import genai
+    except ImportError:
+        raise ImportError("Run: pip install google-genai")
+    api_key = os.environ.get("GOOGLE_API_KEY")
+    if not api_key:
+        raise ValueError("Set: export GOOGLE_API_KEY=your-key")
+    return genai.Client(api_key=api_key)
+
+
+def generate_qa_from_chunk(client, chunk: dict, retries: int = 3) -> dict | None:
+    prompt = f"""{SYSTEM_PROMPT}
+
+Chunk ID: {chunk['id']}
+Title: {chunk['title']}
+
+Text:
+{chunk['text'][:1500]}"""
+
     for attempt in range(retries):
         try:
-            response = client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {
-                        "role": "user",
-                        "content": f"Chunk ID: {chunk['id']}\nTitle: {chunk['title']}\n\nText:\n{chunk['text'][:1500]}",
-                    },
-                ],
-                temperature=0.3,
-                max_tokens=300,
+            response = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=prompt,
             )
-            raw = response.choices[0].message.content.strip()
-            # Strip markdown fences if present
-            raw = raw.replace("```json", "").replace("```", "").strip()
+            raw = response.text.strip().replace("```json", "").replace("```", "").strip()
             qa = json.loads(raw)
             qa["source_title"] = chunk["title"]
             qa["source_filename"] = chunk["filename"]
@@ -59,34 +65,28 @@ def generate_qa_from_chunk(client: OpenAI, chunk: dict, retries: int = 3) -> dic
             qa["ground_truth_context"] = chunk["text"]
             qa["chunk_method"] = chunk.get("chunk_method", "")
             return qa
+        except json.JSONDecodeError as e:
+            print(f"  [attempt {attempt+1}] JSON parse failed: {e}")
+            time.sleep(1)
         except Exception as e:
             print(f"  [attempt {attempt+1}] Failed: {e}")
             time.sleep(2)
     return None
 
 
-def generate_arxiv_qa(
-    chunks_path: str,
-    out_path: str,
-    n_questions: int = 60,
-    skip_short: int = 150,
-) -> list:
-    """Load chunks JSON, sample, call GPT-4o-mini, save QA pairs."""
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def generate_arxiv_qa(chunks_path, out_path, n_questions=60, skip_short=150):
+    client = get_gemini_client()
 
     with open(chunks_path) as f:
         all_chunks = json.load(f)
 
-    # Filter out very short chunks
     valid = [c for c in all_chunks if len(c["text"]) >= skip_short]
-    print(f"[eval-gen] {len(valid)} valid chunks (≥{skip_short} chars) from {len(all_chunks)} total")
+    print(f"[eval-gen] {len(valid)} valid chunks from {len(all_chunks)} total")
 
-    # Sample evenly across papers
     import random
+    from collections import defaultdict
     random.seed(42)
 
-    # Try to get equal representation per paper title
-    from collections import defaultdict
     by_title = defaultdict(list)
     for c in valid:
         by_title[c["title"]].append(c)
@@ -96,14 +96,14 @@ def generate_arxiv_qa(
     for title, chunks in by_title.items():
         sampled.extend(random.sample(chunks, min(per_paper, len(chunks))))
 
-    # Fill remaining up to n_questions
-    remaining = [c for c in valid if c not in sampled]
+    already = set(id(c) for c in sampled)
+    remaining = [c for c in valid if id(c) not in already]
     if len(sampled) < n_questions:
         extra = random.sample(remaining, min(n_questions - len(sampled), len(remaining)))
         sampled.extend(extra)
 
     sampled = sampled[:n_questions]
-    print(f"[eval-gen] Generating {len(sampled)} Q&A pairs using GPT-4o-mini...")
+    print(f"[eval-gen] Generating {len(sampled)} Q&A pairs using {GEMINI_MODEL}...")
 
     qa_pairs = []
     for i, chunk in enumerate(sampled):
@@ -111,7 +111,7 @@ def generate_arxiv_qa(
         qa = generate_qa_from_chunk(client, chunk)
         if qa:
             qa_pairs.append(qa)
-        time.sleep(0.5)  # rate limit
+        time.sleep(0.3)  # free tier: 15 RPM limit
 
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w") as f:
@@ -121,28 +121,15 @@ def generate_arxiv_qa(
     return qa_pairs
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Filter HuggingFace dataset subset
-# ─────────────────────────────────────────────────────────────────────────────
-
-def filter_hf_dataset(
-    hf_path: str = "data/raw/hf_dataset/rag_dataset_12000.json",
-    out_path: str = "data/eval/hf_qa_subset.json",
-    n: int = 100,
-) -> list:
-    """
-    Load the full HF dataset and take a clean subset.
-    HF dataset format: {"question": ..., "context": ..., "answer": ...}
-    We rename to match our unified format.
-    """
+def filter_hf_dataset(hf_path="data/raw/hf_dataset/rag_dataset_12000.json",
+                       out_path="data/eval/hf_qa_subset.json", n=100):
     if not os.path.exists(hf_path):
-        print(f"[hf-filter] Not found: {hf_path}. Run scripts/download_data.py first.")
+        print(f"[hf-filter] Not found: {hf_path}")
         return []
 
     with open(hf_path) as f:
         records = json.load(f)
 
-    # Normalize to unified format
     unified = []
     for r in records[:n]:
         unified.append({
@@ -162,40 +149,25 @@ def filter_hf_dataset(
     return unified
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Entry Point
-# ─────────────────────────────────────────────────────────────────────────────
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate eval Q&A pairs")
-    parser.add_argument("--chunks-path", default="data/processed/chunks_hybrid.json",
-                        help="Path to chunked JSON (output of run_ingest.py)")
-    parser.add_argument("--out-path", default="data/eval/qa_pairs_arxiv.json",
-                        help="Where to save generated Q&A pairs")
-    parser.add_argument("--n-questions", type=int, default=60,
-                        help="Number of Q&A pairs to generate from ArXiv PDFs")
-    parser.add_argument("--hf-subset", type=int, default=100,
-                        help="Number of Q&A pairs to take from HF dataset")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--chunks-path", default="data/processed/chunks_paragraph.json")
+    parser.add_argument("--out-path", default="data/eval/qa_pairs_arxiv.json")
+    parser.add_argument("--n-questions", type=int, default=60)
+    parser.add_argument("--hf-subset", type=int, default=100)
     args = parser.parse_args()
 
-    # Step 1: ArXiv-based Q&A
     print("=" * 60)
     print("Generating Q&A from ArXiv PDF chunks")
     print("=" * 60)
     if os.path.exists(args.chunks_path):
-        generate_arxiv_qa(
-            chunks_path=args.chunks_path,
-            out_path=args.out_path,
-            n_questions=args.n_questions,
-        )
+        generate_arxiv_qa(args.chunks_path, args.out_path, args.n_questions)
     else:
-        print(f"Chunks not found at {args.chunks_path}.")
-        print("Run: python scripts/run_ingest.py --method hybrid first.")
+        print(f"Chunks not found: {args.chunks_path}")
 
-    # Step 2: HF dataset subset
     print("\n" + "=" * 60)
     print("Filtering HuggingFace RAG dataset")
     print("=" * 60)
     filter_hf_dataset(n=args.hf_subset)
 
-    print("\n✅ Eval data ready. Next: python scripts/run_experiment.py")
+    print("\n✅ Eval data ready.")
