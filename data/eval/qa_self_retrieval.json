@@ -1,0 +1,602 @@
+[
+  {
+    "question": "this paper we use the measure \u03c6(A, B, i, j) = \u03c8(Ui\nA, Uj\nB) = \u2225U i\u22a4\nA UB\u22252\nF\nmin",
+    "answer": "this paper we use the measure \u03c6(A, B, i, j) = \u03c8(Ui\nA, Uj\nB) = \u2225U i\u22a4\nA UB\u22252\nF\nmin{i,j} to measure the subspace\nsimilarity between two column orthonormal matrices Ui\nA \u2208 Rd\u00d7i and Uj\nB \u2208 Rd\u00d7j, obtained b",
+    "ground_truth_context": "this paper we use the measure \u03c6(A, B, i, j) = \u03c8(Ui\nA, Uj\nB) = \u2225U i\u22a4\nA UB\u22252\nF\nmin{i,j} to measure the subspace\nsimilarity between two column orthonormal matrices Ui\nA \u2208 Rd\u00d7i and Uj\nB \u2208 Rd\u00d7j, obtained by\ntaking columns of the left singular matrices of A and B. We point out that this similarity is simply\na reverse of the standard Projection Metric that measures distance between subspaces Ham & Lee\n(2008).\n22",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "op-1 err. top-5 err.\nVGG [41] (ILSVRC\u201914) - 8.43 \u2020\nGoogLeNet [44] (ILSVRC\u201914) -",
+    "answer": "op-1 err. top-5 err.\nVGG [41] (ILSVRC\u201914) - 8.43 \u2020\nGoogLeNet [44] (ILSVRC\u201914) - 7.89\nVGG [41] (v5) 24.4 7.1\nPReLU-net [13] 21.59 5.71\nBN-inception [16] 21.99 5.81\nResNet-34 B 21.84 5.71\nResNet-34 C 21",
+    "ground_truth_context": "op-1 err. top-5 err.\nVGG [41] (ILSVRC\u201914) - 8.43 \u2020\nGoogLeNet [44] (ILSVRC\u201914) - 7.89\nVGG [41] (v5) 24.4 7.1\nPReLU-net [13] 21.59 5.71\nBN-inception [16] 21.99 5.81\nResNet-34 B 21.84 5.71\nResNet-34 C 21.53 5.60\nResNet-50 20.74 5.25\nResNet-101 19.87 4.60\nResNet-152 19.38 4.49\nTable 4. Error rates (%) of single-model results on the ImageNet\nvalidation set (except \u2020 reported on the test set).\nmethod top-5 err. (test)\nVGG [41] (ILSVRC\u201914) 7.32\nGoogLeNet [44] (ILSVRC\u201914) 6.66\nVGG [41] (v5) 6.8\nPReLU-net [13] 4.94",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "be incorporated into the model. Table 2 summarizes\nthe comparison of generative",
+    "answer": "be incorporated into the model. Table 2 summarizes\nthe comparison of generative adversarial nets with other generative modeling approaches.\nThe aforementioned advantages are primarily computational. A",
+    "ground_truth_context": "be incorporated into the model. Table 2 summarizes\nthe comparison of generative adversarial nets with other generative modeling approaches.\nThe aforementioned advantages are primarily computational. Adversarial models may also gain\nsome statistical advantage from the generator network not being updated directly with data exam-\nples, but only with gradients \ufb02owing through the discriminator. This means that components of the",
+    "source_title": "GANs"
+  },
+  {
+    "question": "NVIDIA\nA100.\nLDM-1 LDM-2 LDM-4 LDM-8 LDM-16 LDM-32\nz-shape 256\u00d7256\u00d73 128 \u00d7128\u00d72",
+    "answer": "NVIDIA\nA100.\nLDM-1 LDM-2 LDM-4 LDM-8 LDM-16 LDM-32\nz-shape 256\u00d7256\u00d73 128 \u00d7128\u00d72 64 \u00d764\u00d73 32 \u00d732\u00d74 16 \u00d716\u00d78 88 \u00d78\u00d732\n|Z| - 2048 8192 16384 16384 16384\nDiffusion steps 1000 1000 1000 1000 1000 1000\nNois",
+    "ground_truth_context": "NVIDIA\nA100.\nLDM-1 LDM-2 LDM-4 LDM-8 LDM-16 LDM-32\nz-shape 256\u00d7256\u00d73 128 \u00d7128\u00d72 64 \u00d764\u00d73 32 \u00d732\u00d74 16 \u00d716\u00d78 88 \u00d78\u00d732\n|Z| - 2048 8192 16384 16384 16384\nDiffusion steps 1000 1000 1000 1000 1000 1000\nNoise Schedule linear linear linear linear linear linear\nModel Size 396M 391M 391M 395M 395M 395M\nChannels 192 192 192 256 256 256\nDepth 2 2 2 2 2 2\nChannel Multiplier 1,1,2,2,4,4 1,2,2,4,4 1,2,3,5 1,2,4 1,2,4 1,2,4\nNumber of Heads 1 1 1 1 1 1\nBatch Size 7 9 40 64 112 112\nIterations 2M 2M 2M 2M 2M 2M",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "s [DL15, MBXS17, PNZtY18] (though still applied to\ntask-speci\ufb01c architectures),",
+    "answer": "s [DL15, MBXS17, PNZtY18] (though still applied to\ntask-speci\ufb01c architectures), and more recently pre-trained recurrent or transformer language models [VSP+17] have\nbeen directly \ufb01ne-tuned, entirely r",
+    "ground_truth_context": "s [DL15, MBXS17, PNZtY18] (though still applied to\ntask-speci\ufb01c architectures), and more recently pre-trained recurrent or transformer language models [VSP+17] have\nbeen directly \ufb01ne-tuned, entirely removing the need for task-speci\ufb01c architectures [RNSS18, DCLT18, HR18].\nThis last paradigm has led to substantial progress on many challenging NLP tasks such as reading comprehension,\nquestion answering, textual entailment, and many others, and has continued to advance based on new architectures",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "Mandar Joshi, Eunsol Choi, Daniel S Weld, and Luke\nZettlemoyer. 2017. Triviaqa:",
+    "answer": "Mandar Joshi, Eunsol Choi, Daniel S Weld, and Luke\nZettlemoyer. 2017. Triviaqa: A large scale distantly\nsupervised challenge dataset for reading comprehen-\nsion. In ACL.\nRyan Kiros, Yukun Zhu, Ruslan ",
+    "ground_truth_context": "Mandar Joshi, Eunsol Choi, Daniel S Weld, and Luke\nZettlemoyer. 2017. Triviaqa: A large scale distantly\nsupervised challenge dataset for reading comprehen-\nsion. In ACL.\nRyan Kiros, Yukun Zhu, Ruslan R Salakhutdinov,\nRichard Zemel, Raquel Urtasun, Antonio Torralba,\nand Sanja Fidler. 2015. Skip-thought vectors. In\nAdvances in neural information processing systems,\npages 3294\u20133302.\nQuoc Le and Tomas Mikolov. 2014. Distributed rep-\nresentations of sentences and documents. In Inter-",
+    "source_title": "BERT"
+  },
+  {
+    "question": "so we ran several random restarts and selected the\nbest model on the Dev set. Wi",
+    "answer": "so we ran several random restarts and selected the\nbest model on the Dev set. With random restarts,\nwe use the same pre-trained checkpoint but per-\nform different \ufb01ne-tuning data shuf\ufb02ing and clas-\nsi",
+    "ground_truth_context": "so we ran several random restarts and selected the\nbest model on the Dev set. With random restarts,\nwe use the same pre-trained checkpoint but per-\nform different \ufb01ne-tuning data shuf\ufb02ing and clas-\nsi\ufb01er layer initialization.9\nResults are presented in Table 1. Both\nBERTBASE and BERTLARGE outperform all sys-\ntems on all tasks by a substantial margin, obtaining\n4.5% and 7.0% respective average accuracy im-\nprovement over the prior state of the art. Note that\nBERTBASE and OpenAI GPT are nearly identical",
+    "source_title": "BERT"
+  },
+  {
+    "question": "ale training/testing as in [32], where the image\u2019s\nshorter side is s = 600 pixel",
+    "answer": "ale training/testing as in [32], where the image\u2019s\nshorter side is s = 600 pixels. Multi-scale training/testing\nhas been developed in [12, 7] by selecting a scale from a\nfeature pyramid, and in [33] b",
+    "ground_truth_context": "ale training/testing as in [32], where the image\u2019s\nshorter side is s = 600 pixels. Multi-scale training/testing\nhas been developed in [12, 7] by selecting a scale from a\nfeature pyramid, and in [33] by using maxout layers. In\nour current implementation, we have performed multi-scale\ntesting following [33]; we have not performed multi-scale\ntraining because of limited time. In addition, we have per-\nformed multi-scale testing only for the Fast R-CNN step",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "Method FID\u2193 IS\u2191 PSNR\u2191 SSIM\u2191\nImage Regression [72] 15.2 121.1 27.9 0.801\nSR3 [72]",
+    "answer": "Method FID\u2193 IS\u2191 PSNR\u2191 SSIM\u2191\nImage Regression [72] 15.2 121.1 27.9 0.801\nSR3 [72] 5.2 180.1 26.4 0.762\nLDM-4 (ours, 100 steps) 2.8\u2020/4.8\u2021 166.3 24.4 \u00b13.8 0.69\u00b10.14\nLDM-4 (ours, 50 steps, guiding) 4.4 \u2020/",
+    "ground_truth_context": "Method FID\u2193 IS\u2191 PSNR\u2191 SSIM\u2191\nImage Regression [72] 15.2 121.1 27.9 0.801\nSR3 [72] 5.2 180.1 26.4 0.762\nLDM-4 (ours, 100 steps) 2.8\u2020/4.8\u2021 166.3 24.4 \u00b13.8 0.69\u00b10.14\nLDM-4 (ours, 50 steps, guiding) 4.4 \u2020/6.4\u2021 153.7 25.8 \u00b13.7 0.74\u00b10.12\nLDM-4 (ours, 100 steps, guiding) 4.4 \u2020/6.4\u2021 154.1 25.7 \u00b13.7 0.73\u00b10.12\nLDM-4 (ours, 100 steps, +15 ep.) 2.6\u2020 / 4.6\u2021 169.76\u00b15.03 24.4\u00b13.8 0.69\u00b10.14\nPixel-DM (100 steps, +15 ep.) 5.1 \u2020 / 7.1\u2021 163.06\u00b14.67 24.1\u00b13.3 0.59\u00b10.12",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "ut \nsize: 1\nVGG-19 34-layer plain\n7x7 conv, 64, /2\npool, /2\n3x3 conv, 64\n3x3 con",
+    "answer": "ut \nsize: 1\nVGG-19 34-layer plain\n7x7 conv, 64, /2\npool, /2\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 128, /2\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x",
+    "ground_truth_context": "ut \nsize: 1\nVGG-19 34-layer plain\n7x7 conv, 64, /2\npool, /2\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 64\n3x3 conv, 128, /2\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 128\n3x3 conv, 256, /2\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 256\n3x3 conv, 512, /2\n3x3 conv, 512\n3x3 conv, 512\n3x3 conv, 512\n3x3 conv, 512",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "datasets such as ImageNet require reduced compres-\nsion rates to avoid reducing",
+    "answer": "datasets such as ImageNet require reduced compres-\nsion rates to avoid reducing quality. In summary, LDM-4\nand -8 offer the best conditions for achieving high-quality\nsynthesis results.\n4.2. Image Gen",
+    "ground_truth_context": "datasets such as ImageNet require reduced compres-\nsion rates to avoid reducing quality. In summary, LDM-4\nand -8 offer the best conditions for achieving high-quality\nsynthesis results.\n4.2. Image Generation with Latent Diffusion\nWe train unconditional models of 2562 images on\nCelebA-HQ [39], FFHQ [41], LSUN-Churches and\n-Bedrooms [102] and evaluate the i) sample quality and ii)\ntheir coverage of the data manifold using ii) FID [29] and\nii) Precision-and-Recall [50]. Tab. 1 summarizes our re-",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "E. Implementation Details and Hyperparameters\nE.1. Hyperparameters\nWe provide an",
+    "answer": "E. Implementation Details and Hyperparameters\nE.1. Hyperparameters\nWe provide an overview of the hyperparameters of all trainedLDM models in Tab. 12, Tab. 13, Tab. 14 and Tab. 15.\nCelebA-HQ256\u00d7256 FFH",
+    "ground_truth_context": "E. Implementation Details and Hyperparameters\nE.1. Hyperparameters\nWe provide an overview of the hyperparameters of all trainedLDM models in Tab. 12, Tab. 13, Tab. 14 and Tab. 15.\nCelebA-HQ256\u00d7256 FFHQ256\u00d7256 LSUN-Churches256\u00d7256 LSUN-Bedrooms256\u00d7256\nf 4 4 8 4\nz-shape 64\u00d764\u00d73 64 \u00d764\u00d73 - 64\u00d764\u00d73\n|Z| 8192 8192 - 8192\nDiffusion steps 1000 1000 1000 1000\nNoise Schedule linear linear linear linear\nNparams 274M 274M 294M 274M\nChannels 224 224 192 224\nDepth 2 2 2 2",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": ",\nJonathan Uesato, John Mellor, Irina Higgins, An-\ntonia Creswell, Nat McAleese,",
+    "answer": ",\nJonathan Uesato, John Mellor, Irina Higgins, An-\ntonia Creswell, Nat McAleese, Amy Wu, Erich\nElsen, Siddhant Jayakumar, Elena Buchatskaya,\nDavid Budden, Esme Sutherland, Karen Simonyan,\nMichela Paga",
+    "ground_truth_context": ",\nJonathan Uesato, John Mellor, Irina Higgins, An-\ntonia Creswell, Nat McAleese, Amy Wu, Erich\nElsen, Siddhant Jayakumar, Elena Buchatskaya,\nDavid Budden, Esme Sutherland, Karen Simonyan,\nMichela Paganini, Laurent Sifre, Lena Martens,\nXiang Lorraine Li, Adhiguna Kuncoro, Aida Ne-\nmatzadeh, Elena Gribovskaya, Domenic Donato,",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "n of\nthe generalization error across scales, 2019.\n[RRS20] Adam Roberts, Colin R",
+    "answer": "n of\nthe generalization error across scales, 2019.\n[RRS20] Adam Roberts, Colin Raffel, and Noam Shazeer. How much knowledge can you pack into the parameters\nof a language model? arXiv preprint arXiv:2",
+    "ground_truth_context": "n of\nthe generalization error across scales, 2019.\n[RRS20] Adam Roberts, Colin Raffel, and Noam Shazeer. How much knowledge can you pack into the parameters\nof a language model? arXiv preprint arXiv:2002.08910, 2020.\n[RSR+19] Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi\nZhou, Wei Li, and Peter J. Liu. Exploring the limits of transfer learning with a uni\ufb01ed text-to-text\ntransformer, 2019.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "has been largely addressed by normalized initial-\nization [23, 9, 37, 13] and in",
+    "answer": "has been largely addressed by normalized initial-\nization [23, 9, 37, 13] and intermediate normalization layers\n[16], which enable networks with tens of layers to start con-\nverging for stochastic gra",
+    "ground_truth_context": "has been largely addressed by normalized initial-\nization [23, 9, 37, 13] and intermediate normalization layers\n[16], which enable networks with tens of layers to start con-\nverging for stochastic gradient descent (SGD) with back-\npropagation [22].\nWhen deeper networks are able to start converging, a\ndegradation problem has been exposed: with the network\ndepth increasing, accuracy gets saturated (which might be\nunsurprising) and then degrades rapidly. Unexpectedly,",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "er training (Oymak et al., 2019). Some prior works\neven explicitly impose the lo",
+    "answer": "er training (Oymak et al., 2019). Some prior works\neven explicitly impose the low-rank constraint when training the original neural network (Sainath\net al., 2013; Povey et al., 2018; Zhang et al., 201",
+    "ground_truth_context": "er training (Oymak et al., 2019). Some prior works\neven explicitly impose the low-rank constraint when training the original neural network (Sainath\net al., 2013; Povey et al., 2018; Zhang et al., 2014; Jaderberg et al., 2014; Zhao et al., 2016; Kho-\ndak et al., 2021; Denil et al., 2014); however, to the best of our knowledge, none of these works\nconsiders low-rank update to a frozen model for adaptation to downstream tasks . In theory liter-",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "the lowest in 5 out of 7 models. These differences\nnarrowed marginally on the la",
+    "answer": "the lowest in 5 out of 7 models. These differences\nnarrowed marginally on the larger model sizes. This analysis gives a sense of the biases of different models and\nhighlights the need for more sophist",
+    "ground_truth_context": "the lowest in 5 out of 7 models. These differences\nnarrowed marginally on the larger model sizes. This analysis gives a sense of the biases of different models and\nhighlights the need for more sophisticated analysis of the relationship between sentiment, entities, and input data.\n9We only used male and female pronouns. This simplifying assumption makes it easier to study co-occurrence since it does not",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "using score matching. J. Machine\nLearning Res., 6.\n[19] Jarrett, K., Kavukcuoglu",
+    "answer": "using score matching. J. Machine\nLearning Res., 6.\n[19] Jarrett, K., Kavukcuoglu, K., Ranzato, M., and LeCun, Y . (2009). What is the best multi-stage architecture\nfor object recognition? In Proc. Int",
+    "ground_truth_context": "using score matching. J. Machine\nLearning Res., 6.\n[19] Jarrett, K., Kavukcuoglu, K., Ranzato, M., and LeCun, Y . (2009). What is the best multi-stage architecture\nfor object recognition? In Proc. International Conference on Computer Vision (ICCV\u201909), pages 2146\u20132153.\nIEEE.\n[20] Kingma, D. P. and Welling, M. (2014). Auto-encoding variational bayes. In Proceedings of the Interna-\ntional Conference on Learning Representations (ICLR).",
+    "source_title": "GANs"
+  },
+  {
+    "question": "ved process. Neural Computation, 23(8), 2053\u20132073.\n[9] Glorot, X., Bordes, A., a",
+    "answer": "ved process. Neural Computation, 23(8), 2053\u20132073.\n[9] Glorot, X., Bordes, A., and Bengio, Y . (2011). Deep sparse recti\ufb01er neural networks. In AISTATS\u20192011.\n[10] Goodfellow, I. J., Warde-Farley, D., ",
+    "ground_truth_context": "ved process. Neural Computation, 23(8), 2053\u20132073.\n[9] Glorot, X., Bordes, A., and Bengio, Y . (2011). Deep sparse recti\ufb01er neural networks. In AISTATS\u20192011.\n[10] Goodfellow, I. J., Warde-Farley, D., Mirza, M., Courville, A., and Bengio, Y . (2013a). Maxout networks.\nIn ICML\u20192013.\n[11] Goodfellow, I. J., Mirza, M., Courville, A., and Bengio, Y . (2013b). Multi-prediction deep Boltzmann\nmachines. In NIPS\u20192013.",
+    "source_title": "GANs"
+  },
+  {
+    "question": "nnections [2, 34, 49] have been studied for a long\ntime. An early practice of tr",
+    "answer": "nnections [2, 34, 49] have been studied for a long\ntime. An early practice of training multi-layer perceptrons\n(MLPs) is to add a linear layer connected from the network\ninput to the output [34, 49]. ",
+    "ground_truth_context": "nnections [2, 34, 49] have been studied for a long\ntime. An early practice of training multi-layer perceptrons\n(MLPs) is to add a linear layer connected from the network\ninput to the output [34, 49]. In [44, 24], a few interme-\ndiate layers are directly connected to auxiliary classi\ufb01ers\nfor addressing vanishing/exploding gradients. The papers\nof [39, 38, 31, 47] propose methods for centering layer re-\nsponses, gradients, and propagated errors, implemented by",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "t al.,\n2015) and English Wikipedia (2,500M words).\nFor Wikipedia we extract only",
+    "answer": "t al.,\n2015) and English Wikipedia (2,500M words).\nFor Wikipedia we extract only the text passages\nand ignore lists, tables, and headers. It is criti-\ncal to use a document-level corpus rather than a\n",
+    "ground_truth_context": "t al.,\n2015) and English Wikipedia (2,500M words).\nFor Wikipedia we extract only the text passages\nand ignore lists, tables, and headers. It is criti-\ncal to use a document-level corpus rather than a\nshuf\ufb02ed sentence-level corpus such as the Billion\nWord Benchmark (Chelba et al., 2013) in order to\nextract long contiguous sequences.\n3.2 Fine-tuning BERT\nFine-tuning is straightforward since the self-\nattention mechanism in the Transformer al-\nlows BERT to model many downstream tasks\u2014",
+    "source_title": "BERT"
+  },
+  {
+    "question": "on all\ntasks, with large drops on MRPC and SQuAD.\nFor SQuAD it is intuitively cl",
+    "answer": "on all\ntasks, with large drops on MRPC and SQuAD.\nFor SQuAD it is intuitively clear that a LTR\nmodel will perform poorly at token predictions,\nsince the token-level hidden states have no right-\nside c",
+    "ground_truth_context": "on all\ntasks, with large drops on MRPC and SQuAD.\nFor SQuAD it is intuitively clear that a LTR\nmodel will perform poorly at token predictions,\nsince the token-level hidden states have no right-\nside context. In order to make a good faith at-\ntempt at strengthening the LTR system, we added\na randomly initialized BiLSTM on top. This does\nsigni\ufb01cantly improve results on SQuAD, but the\nresults are still far worse than those of the pre-\ntrained bidirectional models. The BiLSTM hurts",
+    "source_title": "BERT"
+  },
+  {
+    "question": ".\nFigure G.38: Formatted dataset example for En\u2192Fr\nContext \u2192 L\u2019analyse de la dis",
+    "answer": ".\nFigure G.38: Formatted dataset example for En\u2192Fr\nContext \u2192 L\u2019analyse de la distribution de fr\u00b4 equence des stades larvaires d\u2019I.\nverticalis dans une s\u00b4 erie d\u2019\u00b4 etangs a \u00b4 egalement d\u00b4 emontr\u00b4 e que",
+    "ground_truth_context": ".\nFigure G.38: Formatted dataset example for En\u2192Fr\nContext \u2192 L\u2019analyse de la distribution de fr\u00b4 equence des stades larvaires d\u2019I.\nverticalis dans une s\u00b4 erie d\u2019\u00b4 etangs a \u00b4 egalement d\u00b4 emontr\u00b4 e que les larves\nm^ ales \u00b4 etaient ` a des stades plus avanc\u00b4 es que les larves femelles. =\nTarget Completion \u2192 Analysis of instar distributions of larval I. verticalis collected from\na series of ponds also indicated that males were in more advanced instars\nthan females.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "t matrices are taken from\nthe 48th layer of GPT-3.\nWe draw several conclusions f",
+    "answer": "t matrices are taken from\nthe 48th layer of GPT-3.\nWe draw several conclusions from Table 7. First, \u2206W has a stronger correlation with W compared\nto a random matrix, indicating that \u2206W ampli\ufb01es some f",
+    "ground_truth_context": "t matrices are taken from\nthe 48th layer of GPT-3.\nWe draw several conclusions from Table 7. First, \u2206W has a stronger correlation with W compared\nto a random matrix, indicating that \u2206W ampli\ufb01es some features that are already in W . Second,\ninstead of repeating the top singular directions of W , \u2206W only ampli\ufb01es directions that are not\nemphasized in W . Third, the ampli\ufb01cation factor is rather huge: 21.5\u2248 6.91/0.32 for r = 4 .",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "3. One can approximately model all conditionals p(xS | x\u0338S) where S is a subset",
+    "answer": "3. One can approximately model all conditionals p(xS | x\u0338S) where S is a subset of the indices\nof x by training a family of conditional models that share parameters. Essentially, one can use\nadversari",
+    "ground_truth_context": "3. One can approximately model all conditionals p(xS | x\u0338S) where S is a subset of the indices\nof x by training a family of conditional models that share parameters. Essentially, one can use\nadversarial nets to implement a stochastic extension of the deterministic MP-DBM [11].\n4. Semi-supervised learning: features from the discriminator or inference net could improve perfor-\nmance of classi\ufb01ers when limited labeled data is available.",
+    "source_title": "GANs"
+  },
+  {
+    "question": "(x,y)\u2208Z\n|y|\u2211\nt=1\nlog\n(\np\u03a60+\u2206\u03a6(\u0398)(yt|x, y<t)\n)\n(2)\nIn the subsequent sections, we",
+    "answer": "(x,y)\u2208Z\n|y|\u2211\nt=1\nlog\n(\np\u03a60+\u2206\u03a6(\u0398)(yt|x, y<t)\n)\n(2)\nIn the subsequent sections, we propose to use a low-rank representation to encode \u2206\u03a6 that is both\ncompute- and memory-ef\ufb01cient. When the pre-trained m",
+    "ground_truth_context": "(x,y)\u2208Z\n|y|\u2211\nt=1\nlog\n(\np\u03a60+\u2206\u03a6(\u0398)(yt|x, y<t)\n)\n(2)\nIn the subsequent sections, we propose to use a low-rank representation to encode \u2206\u03a6 that is both\ncompute- and memory-ef\ufb01cient. When the pre-trained model is GPT-3 175B, the number of train-\nable parameters|\u0398| can be as small as 0.01% of|\u03a60|.\n3 A REN \u2019T EXISTING SOLUTIONS GOOD ENOUGH ?\nThe problem we set out to tackle is by no means new. Since the inception of transfer learning, dozens",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "Rad-\nford et al., 2018), BERT is designed to pre-\ntrain deep bidirectional repre",
+    "answer": "Rad-\nford et al., 2018), BERT is designed to pre-\ntrain deep bidirectional representations from\nunlabeled text by jointly conditioning on both\nleft and right context in all layers. As a re-\nsult, the ",
+    "ground_truth_context": "Rad-\nford et al., 2018), BERT is designed to pre-\ntrain deep bidirectional representations from\nunlabeled text by jointly conditioning on both\nleft and right context in all layers. As a re-\nsult, the pre-trained BERT model can be \ufb01ne-\ntuned with just one additional output layer\nto create state-of-the-art models for a wide\nrange of tasks, such as question answering and\nlanguage inference, without substantial task-\nspeci\ufb01c architecture modi\ufb01cations.\nBERT is conceptually simple and empirically",
+    "source_title": "BERT"
+  },
+  {
+    "question": "iyama, and R. Garnett, editors, Advances in Neural\nInformation Processing System",
+    "answer": "iyama, and R. Garnett, editors, Advances in Neural\nInformation Processing Systems, volume 28. Curran Asso-\nciates, Inc., 2015. 4\n[84] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denois-\ning diffusi",
+    "ground_truth_context": "iyama, and R. Garnett, editors, Advances in Neural\nInformation Processing Systems, volume 28. Curran Asso-\nciates, Inc., 2015. 4\n[84] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denois-\ning diffusion implicit models. In ICLR. OpenReview.net,\n2021. 3, 5, 6, 22\n[85] Yang Song, Jascha Sohl-Dickstein, Diederik P. Kingma,\nAbhishek Kumar, Stefano Ermon, and Ben Poole. Score-\nbased generative modeling through stochastic differential\nequations. CoRR, abs/2011.13456, 2020. 1, 3, 4, 18",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "DMs) achieve state-of-the-art synthesis results on\nimage data and beyond. Additi",
+    "answer": "DMs) achieve state-of-the-art synthesis results on\nimage data and beyond. Additionally, their formulation al-\nlows for a guiding mechanism to control the image gen-\neration process without retraining.",
+    "ground_truth_context": "DMs) achieve state-of-the-art synthesis results on\nimage data and beyond. Additionally, their formulation al-\nlows for a guiding mechanism to control the image gen-\neration process without retraining. However, since these\nmodels typically operate directly in pixel space, optimiza-\ntion of powerful DMs often consumes hundreds of GPU\ndays and inference is expensive due to sequential evalu-\nations. To enable DM training on limited computational\nresources while retaining their quality and \ufb02exibility, we",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "Laurent Dinh, Jascha Sohl-Dickstein, and Samy Ben-\ngio. Density estimation using",
+    "answer": "Laurent Dinh, Jascha Sohl-Dickstein, and Samy Ben-\ngio. Density estimation using real NVP. In 5th Inter-\nnational Conference on Learning Representations, ICLR\n2017, Toulon, France, April 24-26, 2017, ",
+    "ground_truth_context": "Laurent Dinh, Jascha Sohl-Dickstein, and Samy Ben-\ngio. Density estimation using real NVP. In 5th Inter-\nnational Conference on Learning Representations, ICLR\n2017, Toulon, France, April 24-26, 2017, Conference Track\nProceedings. OpenReview.net, 2017. 1, 3\n[20] Alexey Dosovitskiy and Thomas Brox. Generating images\nwith perceptual similarity metrics based on deep networks.\nIn Daniel D. Lee, Masashi Sugiyama, Ulrike von Luxburg,\nIsabelle Guyon, and Roman Garnett, editors, Adv. Neural",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "e indicates words which were most skewed towards a\ncategory by co-occurring with",
+    "answer": "e indicates words which were most skewed towards a\ncategory by co-occurring with it at a higher rate as compared to the other category. To put these numbers in perspective,\nwe have also included the a",
+    "ground_truth_context": "e indicates words which were most skewed towards a\ncategory by co-occurring with it at a higher rate as compared to the other category. To put these numbers in perspective,\nwe have also included the average for the number of co-occurrences across all qualifying words for each gender.\n6.2.2 Race\nTo investigate racial bias in GPT-3, we seeded the model with prompts such as - \"The {race} man was very\" ,\n\"The {race} woman was very\" and \"People would describe the {race} person as\" and generated 800",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "per can be replicated in at most 1 hour on a sin-\ngle Cloud TPU, or a few hours",
+    "answer": "per can be replicated in at most 1 hour on a sin-\ngle Cloud TPU, or a few hours on a GPU, starting\nfrom the exact same pre-trained model. 7 We de-\nscribe the task-speci\ufb01c details in the correspond-\nin",
+    "ground_truth_context": "per can be replicated in at most 1 hour on a sin-\ngle Cloud TPU, or a few hours on a GPU, starting\nfrom the exact same pre-trained model. 7 We de-\nscribe the task-speci\ufb01c details in the correspond-\ning subsections of Section 4. More details can be\nfound in Appendix A.5.\n4 Experiments\nIn this section, we present BERT \ufb01ne-tuning re-\nsults on 11 NLP tasks.\n4.1 GLUE\nThe General Language Understanding Evaluation\n(GLUE) benchmark (Wang et al., 2018a) is a col-\nlection of diverse natural language understanding",
+    "source_title": "BERT"
+  },
+  {
+    "question": "in this work and our training data, and we removed\nthe colliding 13\u2212gram as well",
+    "answer": "in this work and our training data, and we removed\nthe colliding 13\u2212gram as well as a 200 character window around it, splitting the original document into pieces. For\n\ufb01ltering purposes we de\ufb01ne a gram",
+    "ground_truth_context": "in this work and our training data, and we removed\nthe colliding 13\u2212gram as well as a 200 character window around it, splitting the original document into pieces. For\n\ufb01ltering purposes we de\ufb01ne a gram as a lowercase, whitespace delimited word with no punctuation. Pieces less than\n200 characters long were discarded. Documents split into more than 10 pieces were considered contaminated and\n10https://spark.apache.org/docs/latest/api/python/pyspark.ml.html#pyspark.ml.feature.HashingTF\n43",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "er products with some predetermined weight sharing\nscheme. Similarly, combining",
+    "answer": "er products with some predetermined weight sharing\nscheme. Similarly, combining LoRA with other tensor product-based methods could potentially\nimprove its parameter ef\ufb01ciency, which we leave to future",
+    "ground_truth_context": "er products with some predetermined weight sharing\nscheme. Similarly, combining LoRA with other tensor product-based methods could potentially\nimprove its parameter ef\ufb01ciency, which we leave to future work. More recently, many proposed\noptimizing the input word embeddings in lieu of \ufb01ne-tuning, akin to a continuous and differentiable\ngeneralization of prompt engineering (Li & Liang, 2021; Lester et al., 2021; Hambardzumyan et al.,",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "most language tasks \u2013 a brief directive in natural\nlanguage (e.g. \u201cplease tell m",
+    "answer": "most language tasks \u2013 a brief directive in natural\nlanguage (e.g. \u201cplease tell me if this sentence describes something happy or something sad\u201d) or at most a tiny number\nof demonstrations (e.g. \u201chere a",
+    "ground_truth_context": "most language tasks \u2013 a brief directive in natural\nlanguage (e.g. \u201cplease tell me if this sentence describes something happy or something sad\u201d) or at most a tiny number\nof demonstrations (e.g. \u201chere are two examples of people acting brave; please give a third example of bravery\u201d) is often\nFigure 1.1: Language model meta-learning. During unsupervised pre-training, a language model develops a broad",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "lso like to thank Yunxin Jiao for creating several\n\ufb01gures used in the paper. We",
+    "answer": "lso like to thank Yunxin Jiao for creating several\n\ufb01gures used in the paper. We are grateful to the Acceleration and Supercomputing teams at OpenAI for their\nwork on software and hardware infrastructu",
+    "ground_truth_context": "lso like to thank Yunxin Jiao for creating several\n\ufb01gures used in the paper. We are grateful to the Acceleration and Supercomputing teams at OpenAI for their\nwork on software and hardware infrastructure this project used.\n18",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "for a period of approximately 5 months to develop\nour models. This means that de",
+    "answer": "for a period of approximately 5 months to develop\nour models. This means that developing these mod-\nels would have cost around 2,638 MWh under our\nassumptions, and a total emission of 1,015 tCO2eq.\nWe",
+    "ground_truth_context": "for a period of approximately 5 months to develop\nour models. This means that developing these mod-\nels would have cost around 2,638 MWh under our\nassumptions, and a total emission of 1,015 tCO2eq.\nWe hope that releasing these models will help to\nreduce future carbon emission since the training is\nalready done, and some of the models are relatively\nsmall and can be run on a single GPU.\n7 Related work\nLanguage models are probability distributions\nover sequences of words, tokens or charac-",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "able unnormalized probability density. Some models\nsuch as denoising auto-encode",
+    "answer": "able unnormalized probability density. Some models\nsuch as denoising auto-encoders [30] and contractive autoencoders have learning rules very similar\nto score matching applied to RBMs. In NCE, as in t",
+    "ground_truth_context": "able unnormalized probability density. Some models\nsuch as denoising auto-encoders [30] and contractive autoencoders have learning rules very similar\nto score matching applied to RBMs. In NCE, as in this work, a discriminative training criterion is\nemployed to \ufb01t a generative model. However, rather than \ufb01tting a separate discriminative model, the\ngenerative model itself is used to discriminate generated data from samples a \ufb01xed noise distribution.",
+    "source_title": "GANs"
+  },
+  {
+    "question": "CelebA-HQ, FFHQ and LSUN datasets (Fig. 28 - 31).\nSimilar as for the inpainting",
+    "answer": "CelebA-HQ, FFHQ and LSUN datasets (Fig. 28 - 31).\nSimilar as for the inpainting model in Sec. 4.5 we also \ufb01ne-tuned the semantic landscapes model from Sec. 4.3.2 directly on\n5122 images and depict qua",
+    "ground_truth_context": "CelebA-HQ, FFHQ and LSUN datasets (Fig. 28 - 31).\nSimilar as for the inpainting model in Sec. 4.5 we also \ufb01ne-tuned the semantic landscapes model from Sec. 4.3.2 directly on\n5122 images and depict qualitative results in Fig. 12 and Fig. 23. For our those models trained on comparably small datasets,\nwe additionally show nearest neighbors in VGG [79] feature space for samples from our models in Fig. 32 - 34.\n29",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": ". We hypothesize that this occurs because the CLIP\nembedding itself does not exp",
+    "answer": ". We hypothesize that this occurs because the CLIP\nembedding itself does not explicitly bind attributes to objects, and \ufb01nd that reconstructions from the decoder\noften mix up attributes and objects, a",
+    "ground_truth_context": ". We hypothesize that this occurs because the CLIP\nembedding itself does not explicitly bind attributes to objects, and \ufb01nd that reconstructions from the decoder\noften mix up attributes and objects, as shown in Figure 15. A similar and likely related issue is that unCLIP\n16",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "els such as [17, 18] and [9].\n3 Model Architecture\nMost competitive neural seque",
+    "answer": "els such as [17, 18] and [9].\n3 Model Architecture\nMost competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35].\nHere, the encoder maps an input sequence of symbol",
+    "ground_truth_context": "els such as [17, 18] and [9].\n3 Model Architecture\nMost competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35].\nHere, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence\nof continuous representations z = ( z1, ..., zn). Given z, the decoder then generates an output\nsequence (y1, ..., ym) of symbols one element at a time. At each step the model is auto-regressive",
+    "source_title": "Attention Is All You Need"
+  },
+  {
+    "question": "References\n[1] Eirikur Agustsson and Radu Timofte. NTIRE 2017 chal-\nlenge on sin",
+    "answer": "References\n[1] Eirikur Agustsson and Radu Timofte. NTIRE 2017 chal-\nlenge on single image super-resolution: Dataset and study.\nIn 2017 IEEE Conference on Computer Vision and Pattern\nRecognition Worksh",
+    "ground_truth_context": "References\n[1] Eirikur Agustsson and Radu Timofte. NTIRE 2017 chal-\nlenge on single image super-resolution: Dataset and study.\nIn 2017 IEEE Conference on Computer Vision and Pattern\nRecognition Workshops, CVPR Workshops 2017, Honolulu,\nHI, USA, July 21-26, 2017, pages 1122\u20131131. IEEE Com-\nputer Society, 2017. 1\n[2] Martin Arjovsky, Soumith Chintala, and L \u00b4eon Bottou.\nWasserstein gan, 2017. 3\n[3] Andrew Brock, Jeff Donahue, and Karen Simonyan. Large\nscale GAN training for high \ufb01delity natural image synthe-",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "it easier to study co-occurrence since it does not\nrequire the isolation of inst",
+    "answer": "it easier to study co-occurrence since it does not\nrequire the isolation of instances in which \u2018they\u2019 refers to a singular noun from those where it didn\u2019t, but other forms of gender bias\nare likely pr",
+    "ground_truth_context": "it easier to study co-occurrence since it does not\nrequire the isolation of instances in which \u2018they\u2019 refers to a singular noun from those where it didn\u2019t, but other forms of gender bias\nare likely present and could be studied using different approaches.\n37",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "ine-tuned BERT-Large 69.0 77.4 83.6 75.7 70.6 71.7\nGPT-3 Few-Shot 71.8 76.4 75.6",
+    "answer": "ine-tuned BERT-Large 69.0 77.4 83.6 75.7 70.6 71.7\nGPT-3 Few-Shot 71.8 76.4 75.6 52.0 92.0 69.0\nWiC WSC MultiRC MultiRC ReCoRD ReCoRD\nAccuracy Accuracy Accuracy F1a Accuracy F1\nFine-tuned SOTA 76.1 93",
+    "ground_truth_context": "ine-tuned BERT-Large 69.0 77.4 83.6 75.7 70.6 71.7\nGPT-3 Few-Shot 71.8 76.4 75.6 52.0 92.0 69.0\nWiC WSC MultiRC MultiRC ReCoRD ReCoRD\nAccuracy Accuracy Accuracy F1a Accuracy F1\nFine-tuned SOTA 76.1 93.8 62.3 88.2 92.5 93.3\nFine-tuned BERT-Large 69.6 64.6 24.1 70.0 71.3 72.0\nGPT-3 Few-Shot 49.4 80.1 30.5 75.4 90.2 91.1\nTable 3.8: Performance of GPT-3 on SuperGLUE compared to \ufb01ne-tuned baselines and SOTA. All results are reported",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "ls and encoder-decoder\narchitectures [38, 24, 15].\nRecurrent models typically fa",
+    "answer": "ls and encoder-decoder\narchitectures [38, 24, 15].\nRecurrent models typically factor computation along the symbol positions of the input and output\nsequences. Aligning the positions to steps in comput",
+    "ground_truth_context": "ls and encoder-decoder\narchitectures [38, 24, 15].\nRecurrent models typically factor computation along the symbol positions of the input and output\nsequences. Aligning the positions to steps in computation time, they generate a sequence of hidden\nstates ht, as a function of the previous hidden state ht\u22121 and the input for position t. This inherently\nsequential nature precludes parallelization within training examples, which becomes critical at longer",
+    "source_title": "Attention Is All You Need"
+  },
+  {
+    "question": "d\nLM\u201d (MLM), although it is often referred to as a\nCloze task in the literature",
+    "answer": "d\nLM\u201d (MLM), although it is often referred to as a\nCloze task in the literature (Taylor, 1953). In this\ncase, the \ufb01nal hidden vectors corresponding to the\nmask tokens are fed into an output softmax ov",
+    "ground_truth_context": "d\nLM\u201d (MLM), although it is often referred to as a\nCloze task in the literature (Taylor, 1953). In this\ncase, the \ufb01nal hidden vectors corresponding to the\nmask tokens are fed into an output softmax over\nthe vocabulary, as in a standard LM. In all of our\nexperiments, we mask 15% of all WordPiece to-\nkens in each sequence at random. In contrast to\ndenoising auto-encoders (Vincent et al., 2008), we\nonly predict the masked words rather than recon-\nstructing the entire input.",
+    "source_title": "BERT"
+  },
+  {
+    "question": "Hierarchical Text-Conditional\nImage Generation with CLIP Latents\nAditya Ramesh\u2217",
+    "answer": "Hierarchical Text-Conditional\nImage Generation with CLIP Latents\nAditya Ramesh\u2217\nOpenAI\naramesh@openai.com\nPrafulla Dhariwal\u2217\nOpenAI\nprafulla@openai.com\nAlex Nichol\u2217\nOpenAI\nalex@openai.com\nCasey Chu\u2217\nO",
+    "ground_truth_context": "Hierarchical Text-Conditional\nImage Generation with CLIP Latents\nAditya Ramesh\u2217\nOpenAI\naramesh@openai.com\nPrafulla Dhariwal\u2217\nOpenAI\nprafulla@openai.com\nAlex Nichol\u2217\nOpenAI\nalex@openai.com\nCasey Chu\u2217\nOpenAI\ncasey@openai.com\nMark Chen\nOpenAI\nmark@openai.com\nAbstract\nContrastive models like CLIP have been shown to learn robust representations of\nimages that capture both semantics and style. To leverage these representations for\nimage generation, we propose a two-stage model: a prior that generates a CLIP",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "o to few shot settings but is still over 20 points\nshort of the overall SOTA. GP",
+    "answer": "o to few shot settings but is still over 20 points\nshort of the overall SOTA. GPT-3\u2019s few-shot performance is similar to a \ufb01ne-tuned BERT Large baseline on the\nleaderboard.\nOverall, in-context learnin",
+    "ground_truth_context": "o to few shot settings but is still over 20 points\nshort of the overall SOTA. GPT-3\u2019s few-shot performance is similar to a \ufb01ne-tuned BERT Large baseline on the\nleaderboard.\nOverall, in-context learning with GPT-3 shows mixed results on commonsense reasoning tasks, with only small and\ninconsistent gains observed in the one and few-shot learning settings for both PIQA and ARC, but a signi\ufb01cant\nimprovement is observed on OpenBookQA. GPT-3 sets SOTA on the new PIQA dataset in all evaluation settings.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "e more effec-\ntive than encoding original vectors.\nIn low-level vision and compu",
+    "answer": "e more effec-\ntive than encoding original vectors.\nIn low-level vision and computer graphics, for solv-\ning Partial Differential Equations (PDEs), the widely used\nMultigrid method [3] reformulates the",
+    "ground_truth_context": "e more effec-\ntive than encoding original vectors.\nIn low-level vision and computer graphics, for solv-\ning Partial Differential Equations (PDEs), the widely used\nMultigrid method [3] reformulates the system as subprob-\nlems at multiple scales, where each subproblem is respon-\nsible for the residual solution between a coarser and a \ufb01ner\nscale. An alternative to Multigrid is hierarchical basis pre-\nconditioning [45, 46], which relies on variables that repre-",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "internet-scale datasets is a new area of research\nwithout established best pract",
+    "answer": "internet-scale datasets is a new area of research\nwithout established best practices. While it is common practice to train large models without investigating contamination,\ngiven the increasing scale ",
+    "ground_truth_context": "internet-scale datasets is a new area of research\nwithout established best practices. While it is common practice to train large models without investigating contamination,\ngiven the increasing scale of pretraining datasets, we believe this issue is becoming increasingly important to attend to.\nThis concern is not just hypothetical. One of the \ufb01rst papers to train a language model on Common Crawl data [TL18]",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": ". If the optimal function is closer to an identity\nmapping than to a zero mappin",
+    "answer": ". If the optimal function is closer to an identity\nmapping than to a zero mapping, it should be easier for the\nsolver to \ufb01nd the perturbations with reference to an identity\nmapping, than to learn the ",
+    "ground_truth_context": ". If the optimal function is closer to an identity\nmapping than to a zero mapping, it should be easier for the\nsolver to \ufb01nd the perturbations with reference to an identity\nmapping, than to learn the function as a new one. We show\nby experiments (Fig. 7) that the learned residual functions in\ngeneral have small responses, suggesting that identity map-\npings provide reasonable preconditioning.\n3.2. Identity Mapping by Shortcuts\nWe adopt residual learning to every few stacked layers.",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "tern-matching and computation.\n3.9.3 SAT Analogies\nTo test GPT-3 on another task",
+    "answer": "tern-matching and computation.\n3.9.3 SAT Analogies\nTo test GPT-3 on another task that is somewhat unusual relative to the typical distribution of text, we collected a set of\n374 \u201cSAT analogy\u201d problems",
+    "ground_truth_context": "tern-matching and computation.\n3.9.3 SAT Analogies\nTo test GPT-3 on another task that is somewhat unusual relative to the typical distribution of text, we collected a set of\n374 \u201cSAT analogy\u201d problems [TLBS03]. Analogies are a style of multiple choice question that constituted a section of\nthe SAT college entrance exam before 2005. A typical example is \u201caudacious is to boldness as (a) sanctimonious is to",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "al., 2019) and TriviaQA (Joshi et al., 2017). For\nboth benchmarks, we report exa",
+    "answer": "al., 2019) and TriviaQA (Joshi et al., 2017). For\nboth benchmarks, we report exact match perfor-\nmance in a closed book setting, i.e., where the mod-\nels do not have access to documents that contain\ne",
+    "ground_truth_context": "al., 2019) and TriviaQA (Joshi et al., 2017). For\nboth benchmarks, we report exact match perfor-\nmance in a closed book setting, i.e., where the mod-\nels do not have access to documents that contain\nevidence to answer the question. In Table 4, we\nreport performance on NaturalQuestions, and in Ta-\nble 5, we report on TriviaQA. On both benchmarks,\nLLaMA-65B achieve state-of-the-arts performance\nin the zero-shot and few-shot settings. More im-\nportantly, the LLaMA-13B is also competitive on",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "context learning (Figure 3.8). We scale K up to 32\nexamples per task, after whic",
+    "answer": "context learning (Figure 3.8). We scale K up to 32\nexamples per task, after which point additional examples will not reliably \ufb01t into our context. When sweeping over\nvalues ofK, we \ufb01nd that GPT-3 requ",
+    "ground_truth_context": "context learning (Figure 3.8). We scale K up to 32\nexamples per task, after which point additional examples will not reliably \ufb01t into our context. When sweeping over\nvalues ofK, we \ufb01nd that GPT-3 requires less than eight total examples per task to outperform a \ufb01ne-tuned BERT-Large\non overall SuperGLUE score.\n3.8 NLI\nNatural Language Inference (NLI) [Fyo00] concerns the ability to understand the relationship between two sentences.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "al improvement. 2) The mechanism behind \ufb01ne-tuning\nor LoRA is far from clear \u2013 h",
+    "answer": "al improvement. 2) The mechanism behind \ufb01ne-tuning\nor LoRA is far from clear \u2013 how are features learned during pre-training transformed to do well\non downstream tasks? We believe that LoRA makes it mo",
+    "ground_truth_context": "al improvement. 2) The mechanism behind \ufb01ne-tuning\nor LoRA is far from clear \u2013 how are features learned during pre-training transformed to do well\non downstream tasks? We believe that LoRA makes it more tractable to answer this than full \ufb01ne-\n12",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "consists of sentence pairs automatically extracted\nfrom online news sources, wit",
+    "answer": "consists of sentence pairs automatically extracted\nfrom online news sources, with human annotations\nfor whether the sentences in the pair are semanti-\ncally equivalent (Dolan and Brockett, 2005).\nRTE ",
+    "ground_truth_context": "consists of sentence pairs automatically extracted\nfrom online news sources, with human annotations\nfor whether the sentences in the pair are semanti-\ncally equivalent (Dolan and Brockett, 2005).\nRTE Recognizing Textual Entailment is a bi-\nnary entailment task similar to MNLI, but with\nmuch less training data (Bentivogli et al., 2009).14\nWNLI Winograd NLI is a small natural lan-\nguage inference dataset (Levesque et al., 2011).\nThe GLUE webpage notes that there are issues",
+    "source_title": "BERT"
+  },
+  {
+    "question": "re 16; it is possible that the CLIP embedding does\nnot precisely encode spelling",
+    "answer": "re 16; it is possible that the CLIP embedding does\nnot precisely encode spelling information of rendered text. This issue is likely made worse because the BPE\nencoding we use obscures the spelling of ",
+    "ground_truth_context": "re 16; it is possible that the CLIP embedding does\nnot precisely encode spelling information of rendered text. This issue is likely made worse because the BPE\nencoding we use obscures the spelling of the words in a caption from the model, so the model needs to have\nindependently seen each token written out in the training images in order to learn to render it.\nWe also note that our stack still has a hard time producing details in complex scenes (Figure 17). We",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "imates \u02c6mt and\u02c6vt. See section 3 for more details.\nNote that the ef\ufb01ciency of al",
+    "answer": "imates \u02c6mt and\u02c6vt. See section 3 for more details.\nNote that the ef\ufb01ciency of algorithm 1 can, at the expense of clarity, be improved upon by changing\nthe order of computation, e.g. by replacing the l",
+    "ground_truth_context": "imates \u02c6mt and\u02c6vt. See section 3 for more details.\nNote that the ef\ufb01ciency of algorithm 1 can, at the expense of clarity, be improved upon by changing\nthe order of computation, e.g. by replacing the last three lines in the loop with the following lines:\n\u03b1t =\u03b1\u00b7\n\u221a\n1\u2212\u03b2t\n2/(1\u2212\u03b2t\n1) and\u03b8t\u2190\u03b8t\u22121\u2212\u03b1t\u00b7mt/(\u221avt + \u02c6\u03f5).\n2.1 A DAM\u2019S UPDATE RULE\nAn important property of Adam\u2019s update rule is its careful choice of stepsizes. Assuming\u03f5= 0, the",
+    "source_title": "Adam Optimizer"
+  },
+  {
+    "question": "ce by the component-wise standard deviation of the\nlatents as described in Sec.",
+    "answer": "ce by the component-wise standard deviation of the\nlatents as described in Sec. G, the SNR is descreased. We illustrate the effect on convolutional sampling for semantic image\nsynthesis in Fig. 15. No",
+    "ground_truth_context": "ce by the component-wise standard deviation of the\nlatents as described in Sec. G, the SNR is descreased. We illustrate the effect on convolutional sampling for semantic image\nsynthesis in Fig. 15. Note that the VQ-regularized space has a variance close to 1, such that it does not have to be rescaled.\nD.2. Full List of all First Stage Models\nWe provide a complete list of various autoenconding models trained on the OpenImages dataset in Tab. 8.\nD.3. Layout-to-Image Synthesis",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "1.0\nBERT-Large 6.16E+00 5.33E+20 355 250 6 3 2 1.0\nRoBERTa-Base 1.74E+01 1.50E+2",
+    "answer": "1.0\nBERT-Large 6.16E+00 5.33E+20 355 250 6 3 2 1.0\nRoBERTa-Base 1.74E+01 1.50E+21 125 2,000 6 3 2 1.0\nRoBERTa-Large 4.93E+01 4.26E+21 355 2,000 6 3 2 1.0\nGPT-3 Small 2.60E+00 2.25E+20 125 300 6 3 2 1.",
+    "ground_truth_context": "1.0\nBERT-Large 6.16E+00 5.33E+20 355 250 6 3 2 1.0\nRoBERTa-Base 1.74E+01 1.50E+21 125 2,000 6 3 2 1.0\nRoBERTa-Large 4.93E+01 4.26E+21 355 2,000 6 3 2 1.0\nGPT-3 Small 2.60E+00 2.25E+20 125 300 6 3 2 1.0\nGPT-3 Medium 7.42E+00 6.41E+20 356 300 6 3 2 1.0\nGPT-3 Large 1.58E+01 1.37E+21 760 300 6 3 2 1.0\nGPT-3 XL 2.75E+01 2.38E+21 1,320 300 6 3 2 1.0\nGPT-3 2.7B 5.52E+01 4.77E+21 2,650 300 6 3 2 1.0\nGPT-3 6.7B 1.39E+02 1.20E+22 6,660 300 6 3 2 1.0\nGPT-3 13B 2.68E+02 2.31E+22 12,850 300 6 3 2 1.0",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "jan Ghazvininejad, Abdelrahman Mohamed, Omer Levy,\nVes Stoyanov, and Luke Zettle",
+    "answer": "jan Ghazvininejad, Abdelrahman Mohamed, Omer Levy,\nVes Stoyanov, and Luke Zettlemoyer. Bart: Denoising sequence-to-sequence pre-training for natural\nlanguage generation, translation, and comprehension",
+    "ground_truth_context": "jan Ghazvininejad, Abdelrahman Mohamed, Omer Levy,\nVes Stoyanov, and Luke Zettlemoyer. Bart: Denoising sequence-to-sequence pre-training for natural\nlanguage generation, translation, and comprehension. arXiv preprint arXiv:1910.13461, 2019.\n[LM17] Ke Li and Jitendra Malik. Learning to optimize neural nets. arXiv preprint arXiv:1703.00441, 2017.\n[LOG+19] Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis,",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "able 7. Object detection mAP (%) on the PASCAL VOC\n2007/2012 test sets using bas",
+    "answer": "able 7. Object detection mAP (%) on the PASCAL VOC\n2007/2012 test sets using baseline Faster R-CNN. See also Ta-\nble 10 and 11 for better results.\nmetric mAP@.5 mAP@[.5, .95]\nVGG-16 41.5 21.2\nResNet-1",
+    "ground_truth_context": "able 7. Object detection mAP (%) on the PASCAL VOC\n2007/2012 test sets using baseline Faster R-CNN. See also Ta-\nble 10 and 11 for better results.\nmetric mAP@.5 mAP@[.5, .95]\nVGG-16 41.5 21.2\nResNet-101 48.4 27.2\nTable 8. Object detection mAP (%) on the COCO validation set\nusing baseline Faster R-CNN. See also Table 9 for better results.\nhave similar training error. We argue that this is because of\nover\ufb01tting. The 1202-layer network may be unnecessarily",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "orm of small, harmless-looking mammals. Their true\nforms are much more horri\ufb01c,",
+    "answer": "orm of small, harmless-looking mammals. Their true\nforms are much more horri\ufb01c, and they use mind control to make humans think that they\nare cute and harmless animals. They are actually parasites that",
+    "ground_truth_context": "orm of small, harmless-looking mammals. Their true\nforms are much more horri\ufb01c, and they use mind control to make humans think that they\nare cute and harmless animals. They are actually parasites that feed on our life force, and\nthey can extend their tendrils into our brains and control our thoughts and actions.\nThis is why you sometimes see people who are \"crazy cat ladies\" with dozens of these\ncreatures living in their homes. They have been taken over by the cat parasites and are",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "one sitting and we did not omit or repeatedly try\nany prompts. In all cases the",
+    "answer": "one sitting and we did not omit or repeatedly try\nany prompts. In all cases the generated sentence appears to be a correct or at least plausible use of the word. In the \ufb01nal\nsentence the model generat",
+    "ground_truth_context": "one sitting and we did not omit or repeatedly try\nany prompts. In all cases the generated sentence appears to be a correct or at least plausible use of the word. In the \ufb01nal\nsentence the model generates a plausible conjugation for the word \u201cscreeg\u201d (namely \u201cscreeghed\u201d), although the use of\nthe word is slightly awkward (\u201cscreeghed at each other\u201d) despite being plausible in the sense that it could describe a toy",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "Published as a conference paper at ICLR 2015\nLemma 10.4. Let\u03b3\u225c \u03b22\n1\u221a\u03b22\n. For\u03b21,\u03b2",
+    "answer": "Published as a conference paper at ICLR 2015\nLemma 10.4. Let\u03b3\u225c \u03b22\n1\u221a\u03b22\n. For\u03b21,\u03b22\u2208[0, 1) that satisfy \u03b22\n1\u221a\u03b22\n< 1 and boundedgt,\u2225gt\u22252\u2264G,\n\u2225gt\u2225\u221e\u2264G\u221e, the following inequality holds\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i",
+    "ground_truth_context": "Published as a conference paper at ICLR 2015\nLemma 10.4. Let\u03b3\u225c \u03b22\n1\u221a\u03b22\n. For\u03b21,\u03b22\u2208[0, 1) that satisfy \u03b22\n1\u221a\u03b22\n< 1 and boundedgt,\u2225gt\u22252\u2264G,\n\u2225gt\u2225\u221e\u2264G\u221e, the following inequality holds\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n\u22642\n1\u2212\u03b3\n1\u221a1\u2212\u03b22\n\u2225g1:T,i\u22252\nProof. Under the assumption,\n\u221a\n1\u2212\u03b2t\n2\n(1\u2212\u03b2t\n1)2 \u2264 1\n(1\u2212\u03b21)2 . We can expand the last term in the summation\nusing the update rules in Algorithm 1,\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n=\nT\u22121\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n+\n\u221a\n1\u2212\u03b2T\n2\n(1\u2212\u03b2T\n1 )2\n(\u2211T\nk=1(1\u2212\u03b21)\u03b2T\u2212k\n1 gk,i)2\n\u221a\nT\u2211T\nj=1(1\u2212\u03b22)\u03b2T\u2212j\n2 g2\nj,i\n\u2264\nT\u22121\u2211\nt=1",
+    "source_title": "Adam Optimizer"
+  },
+  {
+    "question": "LORA: L OW-R ANK ADAPTATION OF LARGE LAN-\nGUAGE MODELS\nEdward Hu\u2217 Yelong Shen\u2217 P",
+    "answer": "LORA: L OW-R ANK ADAPTATION OF LARGE LAN-\nGUAGE MODELS\nEdward Hu\u2217 Yelong Shen\u2217 Phillip Wallis Zeyuan Allen-Zhu\nYuanzhi Li Shean Wang Lu Wang Weizhu Chen\nMicrosoft Corporation\n{edwardhu, yeshe, phwalli",
+    "ground_truth_context": "LORA: L OW-R ANK ADAPTATION OF LARGE LAN-\nGUAGE MODELS\nEdward Hu\u2217 Yelong Shen\u2217 Phillip Wallis Zeyuan Allen-Zhu\nYuanzhi Li Shean Wang Lu Wang Weizhu Chen\nMicrosoft Corporation\n{edwardhu, yeshe, phwallis, zeyuana,\nyuanzhil, swang, luw, wzchen }@microsoft.com\nyuanzhil@andrew.cmu.edu\n(Version 2)\nABSTRACT\nAn important paradigm of natural language processing consists of large-scale pre-\ntraining on general domain data and adaptation to particular tasks or domains. As",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "many examples can \ufb01t in the model\u2019s context window\n(nctx = 2048). The main advan",
+    "answer": "many examples can \ufb01t in the model\u2019s context window\n(nctx = 2048). The main advantages of few-shot are a major reduction in the need for task-speci\ufb01c data and\nreduced potential to learn an overly narro",
+    "ground_truth_context": "many examples can \ufb01t in the model\u2019s context window\n(nctx = 2048). The main advantages of few-shot are a major reduction in the need for task-speci\ufb01c data and\nreduced potential to learn an overly narrow distribution from a large but narrow \ufb01ne-tuning dataset. The main\ndisadvantage is that results from this method have so far been much worse than state-of-the-art \ufb01ne-tuned\nmodels. Also, a small amount of task speci\ufb01c data is still required. As indicated by the name, few-shot",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "D Random samples\nIn Figures 18, 19 and 20 we show random samples from our produc",
+    "answer": "D Random samples\nIn Figures 18, 19 and 20 we show random samples from our production model for some of the prompts from\nFigure 1.\nFigure 18: Random samples from unCLIP for prompt \u201cVibrant portrait pai",
+    "ground_truth_context": "D Random samples\nIn Figures 18, 19 and 20 we show random samples from our production model for some of the prompts from\nFigure 1.\nFigure 18: Random samples from unCLIP for prompt \u201cVibrant portrait painting of Salvador Dali with a\nrobotic half face\u201d\n25",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "Method Dataset MNLI SST-2 MRPC CoLA QNLI QQP RTE STS-B\nOptimizer AdamW\nWarmup Ra",
+    "answer": "Method Dataset MNLI SST-2 MRPC CoLA QNLI QQP RTE STS-B\nOptimizer AdamW\nWarmup Ratio 0.06\nLR Schedule Linear\nRoBERTa base\nLoRA\nBatch Size 16 16 16 32 32 16 32 16\n# Epochs 30 60 30 80 25 25 80 40\nLearni",
+    "ground_truth_context": "Method Dataset MNLI SST-2 MRPC CoLA QNLI QQP RTE STS-B\nOptimizer AdamW\nWarmup Ratio 0.06\nLR Schedule Linear\nRoBERTa base\nLoRA\nBatch Size 16 16 16 32 32 16 32 16\n# Epochs 30 60 30 80 25 25 80 40\nLearning Rate 5E-04 5E-04 4E-04 4E-04 4E-04 5E-04 5E-04 4E-04\nLoRA Con\ufb01g. rq =rv = 8\nLoRA\u03b1 8\nMax Seq. Len. 512\nRoBERTa large\nLoRA\nBatch Size 4 4 4 4 4 4 8 8\n# Epochs 10 10 20 20 10 20 20 30\nLearning Rate 3E-04 4E-04 3E-04 2E-04 2E-04 3E-04 4E-04 2E-04\nLoRA Con\ufb01g. rq =rv = 8\nLoRA\u03b1 16",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "ngs of the 2020 Conference on Empirical Methods in\nNatural Language Processing:",
+    "answer": "ngs of the 2020 Conference on Empirical Methods in\nNatural Language Processing: System Demonstrations , pp. 38\u201345, Online, October 2020. As-\nsociation for Computational Linguistics. URL https://www.ac",
+    "ground_truth_context": "ngs of the 2020 Conference on Empirical Methods in\nNatural Language Processing: System Demonstrations , pp. 38\u201345, Online, October 2020. As-\nsociation for Computational Linguistics. URL https://www.aclweb.org/anthology/\n2020.emnlp-demos.6.\nGreg Yang and Edward J. Hu. Feature Learning in In\ufb01nite-Width Neural Networks.\narXiv:2011.14522 [cond-mat], May 2021. URL http://arxiv.org/abs/2011.14522.\narXiv: 2011.14522.\nElad Ben Zaken, Shauli Ravfogel, and Yoav Goldberg. Bit\ufb01t: Simple parameter-ef\ufb01cient \ufb01ne-tuning",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "tical\nproblem solving with the math dataset. arXiv\npreprint arXiv:2103.03874.\nJo",
+    "answer": "tical\nproblem solving with the math dataset. arXiv\npreprint arXiv:2103.03874.\nJoel Hestness, Sharan Narang, Newsha Ardalani, Gre-\ngory Diamos, Heewoo Jun, Hassan Kianinejad,\nMd Patwary, Mostofa Ali, Y",
+    "ground_truth_context": "tical\nproblem solving with the math dataset. arXiv\npreprint arXiv:2103.03874.\nJoel Hestness, Sharan Narang, Newsha Ardalani, Gre-\ngory Diamos, Heewoo Jun, Hassan Kianinejad,\nMd Patwary, Mostofa Ali, Yang Yang, and Yanqi\nZhou. 2017. Deep learning scaling is predictable,\nempirically. arXiv preprint arXiv:1712.00409.\nSepp Hochreiter and J\u00fcrgen Schmidhuber. 1997.\nLong short-term memory. Neural computation ,\n9(8):1735\u20131780.\nJordan Hoffmann, Sebastian Borgeaud, Arthur Mensch,",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "LLaMA GPT3 OPT\nGender 70.6 62.6 65.7\nReligion 79.0 73.3 68.6\nRace/Color 57.0 64.",
+    "answer": "LLaMA GPT3 OPT\nGender 70.6 62.6 65.7\nReligion 79.0 73.3 68.6\nRace/Color 57.0 64.7 68.6\nSexual orientation 81.0 76.2 78.6\nAge 70.1 64.4 67.8\nNationality 64.2 61.6 62.9\nDisability 66.7 76.7 76.7\nPhysica",
+    "ground_truth_context": "LLaMA GPT3 OPT\nGender 70.6 62.6 65.7\nReligion 79.0 73.3 68.6\nRace/Color 57.0 64.7 68.6\nSexual orientation 81.0 76.2 78.6\nAge 70.1 64.4 67.8\nNationality 64.2 61.6 62.9\nDisability 66.7 76.7 76.7\nPhysical appearance 77.8 74.6 76.2\nSocioeconomic status 71.5 73.8 76.2\nAverage 66.6 67.2 69.5\nTable 12: CrowS-Pairs. We compare the level of bi-\nases contained in LLaMA-65B with OPT-175B and\nGPT3-175B. Higher score indicates higher bias.\n5.2 CrowS-Pairs\nWe evaluate the biases in our model on the CrowS-",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "ess effective \u2013 for example GPT-3 often interprets\nthe proposed \ufb01rst sentence of",
+    "answer": "ess effective \u2013 for example GPT-3 often interprets\nthe proposed \ufb01rst sentence of a \u201cnews article\u201d as a tweet and then posts synthetic responses or follow-up tweets. To\nsolve this problem we employed G",
+    "ground_truth_context": "ess effective \u2013 for example GPT-3 often interprets\nthe proposed \ufb01rst sentence of a \u201cnews article\u201d as a tweet and then posts synthetic responses or follow-up tweets. To\nsolve this problem we employed GPT-3\u2019s few-shot learning abilities by providing three previous news articles in the\nmodel\u2019s context to condition it. With the title and subtitle of a proposed next article, the model is able to reliably\ngenerate short articles in the \u201cnews\u201d genre.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "ations after the embedding layer) for some special\ntokens, we learn the activati",
+    "answer": "ations after the embedding layer) for some special\ntokens, we learn the activations after every Transformer layer. The activations computed from pre-\nvious layers are simply replaced by trainable ones",
+    "ground_truth_context": "ations after the embedding layer) for some special\ntokens, we learn the activations after every Transformer layer. The activations computed from pre-\nvious layers are simply replaced by trainable ones. The resulting number of trainable parameters is\n|\u0398| = L\u00d7 dmodel\u00d7 (lp + li), where L is the number of Transformer layers.\nAdapter tuning as proposed in Houlsby et al. (2019) inserts adapter layers between the self-\nattention module (and the MLP module) and the subsequent residual connection. There are two",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "Das, and Jakob Uszkoreit. A decomposable attention\nmodel. In Empirical Methods i",
+    "answer": "Das, and Jakob Uszkoreit. A decomposable attention\nmodel. In Empirical Methods in Natural Language Processing , 2016.\n[28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for",
+    "ground_truth_context": "Das, and Jakob Uszkoreit. A decomposable attention\nmodel. In Empirical Methods in Natural Language Processing , 2016.\n[28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive\nsummarization. arXiv preprint arXiv:1705.04304, 2017.\n[29] Slav Petrov, Leon Barrett, Romain Thibaux, and Dan Klein. Learning accurate, compact,\nand interpretable tree annotation. In Proceedings of the 21st International Conference on",
+    "source_title": "Attention Is All You Need"
+  },
+  {
+    "question": "[32] Jonathan Ho and Tim Salimans. Classi\ufb01er-free diffusion\nguidance. In NeurIPS",
+    "answer": "[32] Jonathan Ho and Tim Salimans. Classi\ufb01er-free diffusion\nguidance. In NeurIPS 2021 Workshop on Deep Generative\nModels and Downstream Applications, 2021. 6, 7, 16, 22,\n28, 37, 38\n[33] Phillip Isola,",
+    "ground_truth_context": "[32] Jonathan Ho and Tim Salimans. Classi\ufb01er-free diffusion\nguidance. In NeurIPS 2021 Workshop on Deep Generative\nModels and Downstream Applications, 2021. 6, 7, 16, 22,\n28, 37, 38\n[33] Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, and Alexei A.\nEfros. Image-to-image translation with conditional adver-\nsarial networks. In CVPR, pages 5967\u20135976. IEEE Com-\nputer Society, 2017. 3, 4\n[34] Phillip Isola, Jun-Yan Zhu, Tinghui Zhou, and Alexei A.\nEfros. Image-to-image translation with conditional adver-",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "pproximation, better generalization performance is\noften achieved by averaging.",
+    "answer": "pproximation, better generalization performance is\noften achieved by averaging. Previously in Moulines & Bach (2011), Polyak-Ruppert averaging\n(Polyak & Juditsky, 1992; Ruppert, 1988) has been shown t",
+    "ground_truth_context": "pproximation, better generalization performance is\noften achieved by averaging. Previously in Moulines & Bach (2011), Polyak-Ruppert averaging\n(Polyak & Juditsky, 1992; Ruppert, 1988) has been shown to improve the convergence of standard\nSGD, where \u00af\u03b8t = 1\nt\n\u2211n\nk=1\u03b8k. Alternatively, an exponential moving average over the parameters can\nbe used, giving higher weight to more recent parameter values. This can be trivially implemented",
+    "source_title": "Adam Optimizer"
+  },
+  {
+    "question": "the right order of magnitude of \u03b1such that optima\ncan be reached from \u03b80 within",
+    "answer": "the right order of magnitude of \u03b1such that optima\ncan be reached from \u03b80 within some number of iterations. With a slight abuse of terminology,\nwe will call the ratio \u02c6mt/\u221a\u02c6vt the signal-to-noise ratio",
+    "ground_truth_context": "the right order of magnitude of \u03b1such that optima\ncan be reached from \u03b80 within some number of iterations. With a slight abuse of terminology,\nwe will call the ratio \u02c6mt/\u221a\u02c6vt the signal-to-noise ratio (SNR ). With a smaller SNR the effective\nstepsize \u2206 t will be closer to zero. This is a desirable property, since a smaller SNR means that\nthere is greater uncertainty about whether the direction of\u02c6mt corresponds to the direction of the true",
+    "source_title": "Adam Optimizer"
+  },
+  {
+    "question": "ing times. To scale to higher resolutions, several\ntwo-stage approaches [23,67,1",
+    "answer": "ing times. To scale to higher resolutions, several\ntwo-stage approaches [23,67,101,103] use ARMs to model\na compressed latent image space instead of raw pixels.\nRecently, Diffusion Probabilistic Model",
+    "ground_truth_context": "ing times. To scale to higher resolutions, several\ntwo-stage approaches [23,67,101,103] use ARMs to model\na compressed latent image space instead of raw pixels.\nRecently, Diffusion Probabilistic Models (DM) [82],\nhave achieved state-of-the-art results in density estimation\n[45] as well as in sample quality [15]. The generative power\nof these models stems from a natural \ufb01t to the inductive bi-\nases of image-like data when their underlying neural back-\nbone is implemented as a UNet [15, 30, 71, 85]. The best",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "entries that\nuse BERT as one of their components.\ntuning data, we only lose 0.1-",
+    "answer": "entries that\nuse BERT as one of their components.\ntuning data, we only lose 0.1-0.4 F1, still outper-\nforming all existing systems by a wide margin.12\n4.3 SQuAD v2.0\nThe SQuAD 2.0 task extends the SQu",
+    "ground_truth_context": "entries that\nuse BERT as one of their components.\ntuning data, we only lose 0.1-0.4 F1, still outper-\nforming all existing systems by a wide margin.12\n4.3 SQuAD v2.0\nThe SQuAD 2.0 task extends the SQuAD 1.1\nproblem de\ufb01nition by allowing for the possibility\nthat no short answer exists in the provided para-\ngraph, making the problem more realistic.\nWe use a simple approach to extend the SQuAD\nv1.1 BERT model for this task. We treat ques-\ntions that do not have an answer as having an an-",
+    "source_title": "BERT"
+  },
+  {
+    "question": "43], and for the second, we use a more diverse BSR\ndegradation [42, 59]. To redu",
+    "answer": "43], and for the second, we use a more diverse BSR\ndegradation [42, 59]. To reduce training compute and improve numerical stability, we follow Rombach et al.\n[42] and train on random crops of images t",
+    "ground_truth_context": "43], and for the second, we use a more diverse BSR\ndegradation [42, 59]. To reduce training compute and improve numerical stability, we follow Rombach et al.\n[42] and train on random crops of images that are one-fourth the target size. We use only spatial convolutions\nin the model (i.e., no attention layers) and at inference time directly apply the model at the target resolution,\nobserving that it readily generalizes to the higher resolution. We found no bene\ufb01t from conditioning the",
+    "source_title": "DALL-E 2"
+  },
+  {
+    "question": "zero, one and few-shot settings. Broadly, for most\ntasks we \ufb01nd relatively smoot",
+    "answer": "zero, one and few-shot settings. Broadly, for most\ntasks we \ufb01nd relatively smooth scaling with model capacity in all three settings; one notable pattern is that the gap\nbetween zero-, one-, and few-sh",
+    "ground_truth_context": "zero, one and few-shot settings. Broadly, for most\ntasks we \ufb01nd relatively smooth scaling with model capacity in all three settings; one notable pattern is that the gap\nbetween zero-, one-, and few-shot performance often grows with model capacity, perhaps suggesting that larger models\nare more pro\ufb01cient meta-learners.\nFinally, given the broad spectrum of capabilities displayed by GPT-3, we discuss concerns about bias, fairness, and",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "in the summation.\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n\u2264\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2212t\u2211\nj=0\nt\u03b3j",
+    "answer": "in the summation.\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n\u2264\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2212t\u2211\nj=0\nt\u03b3j\n\u2264\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2211\nj=0\nt\u03b3j\nFor\u03b3 <1, using the upper bound on the arithmetic-geometric series,\u2211\ntt\u03b3t < 1\n(1\u2212\u03b3)2",
+    "ground_truth_context": "in the summation.\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n\u2264\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2212t\u2211\nj=0\nt\u03b3j\n\u2264\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2211\nj=0\nt\u03b3j\nFor\u03b3 <1, using the upper bound on the arithmetic-geometric series,\u2211\ntt\u03b3t < 1\n(1\u2212\u03b3)2 :\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt(1\u2212\u03b22)\nT\u2211\nj=0\nt\u03b3j\u2264 1\n(1\u2212\u03b3)2\u221a1\u2212\u03b22\nT\u2211\nt=1\n\u2225gt,i\u22252\u221a\nt\nApply Lemma 10.3,\nT\u2211\nt=1\n\u02c6m2\nt,i\u221a\nt\u02c6vt,i\n\u2264 2G\u221e\n(1\u2212\u03b3)2\u221a1\u2212\u03b22\n\u2225g1:T,i\u22252\nTo simplify the notation, we de\ufb01ne \u03b3\u225c \u03b22\n1\u221a\u03b22\n. Intuitively, our following theorem holds when the\nlearning rate\u03b1t is decaying at a rate oft\u22121",
+    "source_title": "Adam Optimizer"
+  },
+  {
+    "question": "Humanities STEM Social Sciences Other Average\nGPT-NeoX 20B 29.8 34.9 33.7 37.7 3",
+    "answer": "Humanities STEM Social Sciences Other Average\nGPT-NeoX 20B 29.8 34.9 33.7 37.7 33.6\nGPT-3 175B 40.8 36.7 50.4 48.8 43.9\nGopher 280B 56.2 47.4 71.9 66.1 60.0\nChinchilla 70B 63.6 54.9 79.3 73.9 67.5\nPaL",
+    "ground_truth_context": "Humanities STEM Social Sciences Other Average\nGPT-NeoX 20B 29.8 34.9 33.7 37.7 33.6\nGPT-3 175B 40.8 36.7 50.4 48.8 43.9\nGopher 280B 56.2 47.4 71.9 66.1 60.0\nChinchilla 70B 63.6 54.9 79.3 73.9 67.5\nPaLM\n8B 25.6 23.8 24.1 27.8 25.4\n62B 59.5 41.9 62.7 55.8 53.7\n540B 77.0 55.6 81.0 69.6 69.3\nLLaMA\n7B 34.0 30.5 38.3 38.1 35.1\n13B 45.0 35.8 53.8 53.3 46.9\n33B 55.8 46.0 66.7 63.4 57.8\n65B 61.8 51.7 72.9 67.4 63.4\nTable 9: Massive Multitask Language Understanding (MMLU). Five-shot accuracy.",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "7B 13B 33B 65B\nAll 66.0 64.7 69.0 77.5\nher/her/she 65.0 66.7 66.7 78.8\nhis/him/h",
+    "answer": "7B 13B 33B 65B\nAll 66.0 64.7 69.0 77.5\nher/her/she 65.0 66.7 66.7 78.8\nhis/him/he 60.8 62.5 62.1 72.1\ntheir/them/someone 72.1 65.0 78.3 81.7\nher/her/she (gotcha) 64.2 65.8 61.7 75.0\nhis/him/he (gotcha",
+    "ground_truth_context": "7B 13B 33B 65B\nAll 66.0 64.7 69.0 77.5\nher/her/she 65.0 66.7 66.7 78.8\nhis/him/he 60.8 62.5 62.1 72.1\ntheir/them/someone 72.1 65.0 78.3 81.7\nher/her/she (gotcha) 64.2 65.8 61.7 75.0\nhis/him/he (gotcha) 55.0 55.8 55.8 63.3\nTable 13: WinoGender. Co-reference resolution ac-\ncuracy for the LLaMA models, for different pronouns\n(\u201cher/her/she\u201d and \u201chis/him/he\u201d). We observe that our\nmodels obtain better performance on \u201ctheir/them/some-\none\u2019 pronouns than on \u201cher/her/she\u201d and \u201chis/him/he\u2019,",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "worth noticing that our model has fewer \ufb01lters and\nlower complexity than VGG net",
+    "answer": "worth noticing that our model has fewer \ufb01lters and\nlower complexity than VGG nets [41] (Fig. 3, left). Our 34-\nlayer baseline has 3.6 billion FLOPs (multiply-adds), which\nis only 18% of VGG-19 (19.6 b",
+    "ground_truth_context": "worth noticing that our model has fewer \ufb01lters and\nlower complexity than VGG nets [41] (Fig. 3, left). Our 34-\nlayer baseline has 3.6 billion FLOPs (multiply-adds), which\nis only 18% of VGG-19 (19.6 billion FLOPs).\n3",
+    "source_title": "Deep Residual Learning"
+  },
+  {
+    "question": "ed to the model, so having seen the passage during\ntraining but not the question",
+    "answer": "ed to the model, so having seen the passage during\ntraining but not the questions and answers does not meaningfully constitute cheating. We con\ufb01rmed that every matching\ntraining document contained onl",
+    "ground_truth_context": "ed to the model, so having seen the passage during\ntraining but not the questions and answers does not meaningfully constitute cheating. We con\ufb01rmed that every matching\ntraining document contained only the source passage, and none of the questions and answers in the dataset. The more\nlikely explanation for the decrease in performance is that the 6% of examples that remain after \ufb01ltering come from a\nslightly different distribution than the dirty examples.",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "mization of LoRA weights more dif\ufb01cult in LoRA+PL.\nF A DDITIONAL EMPIRICAL EXPER",
+    "answer": "mization of LoRA weights more dif\ufb01cult in LoRA+PL.\nF A DDITIONAL EMPIRICAL EXPERIMENTS\nF.1 A DDITIONAL EXPERIMENTS ON GPT-2\nWe also repeat our experiment on DART (Nan et al., 2020) and WebNLG (Gardent",
+    "ground_truth_context": "mization of LoRA weights more dif\ufb01cult in LoRA+PL.\nF A DDITIONAL EMPIRICAL EXPERIMENTS\nF.1 A DDITIONAL EXPERIMENTS ON GPT-2\nWe also repeat our experiment on DART (Nan et al., 2020) and WebNLG (Gardent et al., 2017)\nfollowing the setup of Li & Liang (2021). The result is shown in Table 13. Similar to our result\non E2E NLG Challenge, reported in Section 5, LoRA performs better than or at least on-par with\npre\ufb01x-based approaches given the same number of trainable parameters.\nMethod # Trainable DART",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "2 Approach\nOur training approach is similar to the methods\ndescribed in previous",
+    "answer": "2 Approach\nOur training approach is similar to the methods\ndescribed in previous work (Brown et al., 2020;\nChowdhery et al., 2022), and is inspired by the\nChinchilla scaling laws (Hoffmann et al., 202",
+    "ground_truth_context": "2 Approach\nOur training approach is similar to the methods\ndescribed in previous work (Brown et al., 2020;\nChowdhery et al., 2022), and is inspired by the\nChinchilla scaling laws (Hoffmann et al., 2022).\nWe train large transformers on a large quantity of\ntextual data using a standard optimizer.\n2.1 Pre-training Data\nOur training dataset is a mixture of several sources,\nreported in Table 1, that cover a diverse set of do-\nmains. For the most part, we reuse data sources",
+    "source_title": "LLaMA"
+  },
+  {
+    "question": "Mean accuracy\n95% Con\ufb01dence\nInterval (low, hi)\nt compared to\ncontrol (p-value)\n\u201c",
+    "answer": "Mean accuracy\n95% Con\ufb01dence\nInterval (low, hi)\nt compared to\ncontrol (p-value)\n\u201cI don\u2019t know\u201d\nassignments\nControl (deliberately bad model) 86% 83%\u201390% - 3.6 %\nGPT-3 Small 76% 72%\u201380% 3.9 (2 e-4) 4.9%\n",
+    "ground_truth_context": "Mean accuracy\n95% Con\ufb01dence\nInterval (low, hi)\nt compared to\ncontrol (p-value)\n\u201cI don\u2019t know\u201d\nassignments\nControl (deliberately bad model) 86% 83%\u201390% - 3.6 %\nGPT-3 Small 76% 72%\u201380% 3.9 (2 e-4) 4.9%\nGPT-3 Medium 61% 58%\u201365% 10.3 (7 e-21) 6.0%\nGPT-3 Large 68% 64%\u201372% 7.3 (3 e-11) 8.7%\nGPT-3 XL 62% 59%\u201365% 10.7 (1 e-19) 7.5%\nGPT-3 2.7B 62% 58%\u201365% 10.4 (5 e-19) 7.1%\nGPT-3 6.7B 60% 56%\u201363% 11.2 (3 e-21) 6.2%\nGPT-3 13B 55% 52%\u201358% 15.3 (1 e-32) 7.1%\nGPT-3 175B 52% 49%\u201354% 16.9 (1 e-34) 7.8%",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "of outputs as:\nAttention(Q, K, V ) = softmax( QK T\n\u221adk\n)V (1)\nThe two most commo",
+    "answer": "of outputs as:\nAttention(Q, K, V ) = softmax( QK T\n\u221adk\n)V (1)\nThe two most commonly used attention functions are additive attention [2], and dot-product (multi-\nplicative) attention. Dot-product atten",
+    "ground_truth_context": "of outputs as:\nAttention(Q, K, V ) = softmax( QK T\n\u221adk\n)V (1)\nThe two most commonly used attention functions are additive attention [2], and dot-product (multi-\nplicative) attention. Dot-product attention is identical to our algorithm, except for the scaling factor\nof 1\u221adk\n. Additive attention computes the compatibility function using a feed-forward network with\na single hidden layer. While the two are similar in theoretical complexity, dot-product attention is",
+    "source_title": "Attention Is All You Need"
+  },
+  {
+    "question": "in the means (as the t-statistic) and the p-value.\n6If a model consistently prod",
+    "answer": "in the means (as the t-statistic) and the p-value.\n6If a model consistently produces texts that are more impressive than human articles, it is possible that human performance on\nthis task would drop b",
+    "ground_truth_context": "in the means (as the t-statistic) and the p-value.\n6If a model consistently produces texts that are more impressive than human articles, it is possible that human performance on\nthis task would drop below 50%. Indeed, many individual participants scored below 50% on this task.\n7Additional non-news samples can be found in Appendix F.\n26",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "with its letters cycled, then the \u201c=\u201d symbol, and\nis expected to generate the or",
+    "answer": "with its letters cycled, then the \u201c=\u201d symbol, and\nis expected to generate the original word. For example, it might be given \u201clyinevitab\u201d and should output\n\u201cinevitably\u201d.\n\u2022 Anagrams of all but \ufb01rst and ",
+    "ground_truth_context": "with its letters cycled, then the \u201c=\u201d symbol, and\nis expected to generate the original word. For example, it might be given \u201clyinevitab\u201d and should output\n\u201cinevitably\u201d.\n\u2022 Anagrams of all but \ufb01rst and last characters (A1) \u2013 The model is given a word where every letter except\nthe \ufb01rst and last have been scrambled randomly, and must output the original word. Example: criroptuon =\ncorruption.\n\u2022 Anagrams of all but \ufb01rst and last 2 characters (A2) \u2013 The model is given a word where every letter except",
+    "source_title": "GPT-3"
+  },
+  {
+    "question": "d\ndata over different pre-training tasks. For \ufb01ne-\ntuning, the BERT model is \ufb01rs",
+    "answer": "d\ndata over different pre-training tasks. For \ufb01ne-\ntuning, the BERT model is \ufb01rst initialized with\nthe pre-trained parameters, and all of the param-\neters are \ufb01ne-tuned using labeled data from the\ndow",
+    "ground_truth_context": "d\ndata over different pre-training tasks. For \ufb01ne-\ntuning, the BERT model is \ufb01rst initialized with\nthe pre-trained parameters, and all of the param-\neters are \ufb01ne-tuned using labeled data from the\ndownstream tasks. Each downstream task has sep-\narate \ufb01ne-tuned models, even though they are ini-\ntialized with the same pre-trained parameters. The\nquestion-answering example in Figure 1 will serve\nas a running example for this section.\nA distinctive feature of BERT is its uni\ufb01ed ar-",
+    "source_title": "BERT"
+  },
+  {
+    "question": "n-based transformer models in a highly compressed,\ndiscrete latent space [23,66,",
+    "answer": "n-based transformer models in a highly compressed,\ndiscrete latent space [23,66,103], we can take advantage of\nimage-speci\ufb01c inductive biases that our model offers. This\nSemantic \n Map\ncrossattention\n",
+    "ground_truth_context": "n-based transformer models in a highly compressed,\ndiscrete latent space [23,66,103], we can take advantage of\nimage-speci\ufb01c inductive biases that our model offers. This\nSemantic \n Map\ncrossattention\nLatent Space Conditioning \nText\nDiffusion Process\ndenoising step switch skip connection\nRepres \nentations\nPixel Space\nImages\nDenoising U-Net\nconcat\nFigure 3. We condition LDMs either via concatenation or by a\nmore general cross-attention mechanism. See Sec. 3.3",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "edures\nIn Section 3.1, we mention that BERT uses a\nmixed strategy for masking th",
+    "answer": "edures\nIn Section 3.1, we mention that BERT uses a\nmixed strategy for masking the target tokens when\npre-training with the masked language model\n(MLM) objective. The following is an ablation\nstudy to ",
+    "ground_truth_context": "edures\nIn Section 3.1, we mention that BERT uses a\nmixed strategy for masking the target tokens when\npre-training with the masked language model\n(MLM) objective. The following is an ablation\nstudy to evaluate the effect of different masking\nstrategies.\n200 400 600 800 1,000\n76\n78\n80\n82\n84\nPre-training Steps (Thousands)\nMNLI Dev Accuracy\nBERTBASE (Masked LM)\nBERTBASE (Left-to-Right)\nFigure 5: Ablation over number of training steps. This\nshows the MNLI accuracy after \ufb01ne-tuning, starting",
+    "source_title": "BERT"
+  },
+  {
+    "question": "lle Guyon, and Roman Garnett, editors, Adv. Neural\nInform. Process. Syst., pages",
+    "answer": "lle Guyon, and Roman Garnett, editors, Adv. Neural\nInform. Process. Syst., pages 658\u2013666, 2016. 3\n[21] Patrick Esser, Robin Rombach, Andreas Blattmann, and\nBj\u00a8orn Ommer. Imagebart: Bidirectional conte",
+    "ground_truth_context": "lle Guyon, and Roman Garnett, editors, Adv. Neural\nInform. Process. Syst., pages 658\u2013666, 2016. 3\n[21] Patrick Esser, Robin Rombach, Andreas Blattmann, and\nBj\u00a8orn Ommer. Imagebart: Bidirectional context with multi-\nnomial diffusion for autoregressive image synthesis.CoRR,\nabs/2108.08827, 2021. 6, 7, 22\n[22] Patrick Esser, Robin Rombach, and Bj \u00a8orn Ommer. A\nnote on data biases in generative models. arXiv preprint\narXiv:2012.02516, 2020. 9\n[23] Patrick Esser, Robin Rombach, and Bj \u00a8orn Ommer. Taming",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "tative analysis, we follow prior work and evaluate\ntext-to-image generation on t",
+    "answer": "tative analysis, we follow prior work and evaluate\ntext-to-image generation on the MS-COCO [51] validation\nset, where our model improves upon powerful AR [17, 66]\nand GAN-based [109] methods, cf . Tab",
+    "ground_truth_context": "tative analysis, we follow prior work and evaluate\ntext-to-image generation on the MS-COCO [51] validation\nset, where our model improves upon powerful AR [17, 66]\nand GAN-based [109] methods, cf . Tab. 2. We note that ap-\nplying classi\ufb01er-free diffusion guidance [32] greatly boosts\nsample quality, such that the guidedLDM-KL-8-G is on par\nwith the recent state-of-the-art AR [26] and diffusion mod-\nels [59] for text-to-image synthesis, while substantially re-",
+    "source_title": "Stable Diffusion"
+  },
+  {
+    "question": "tion loss and r = 4 for BLEU, suggesting the GPT-2\nMedium has a similar intrinsi",
+    "answer": "tion loss and r = 4 for BLEU, suggesting the GPT-2\nMedium has a similar intrinsic rank for adaptation compared to GPT-3 175B. Note that some of our\nhyperparameters are tuned on r = 4, which matches th",
+    "ground_truth_context": "tion loss and r = 4 for BLEU, suggesting the GPT-2\nMedium has a similar intrinsic rank for adaptation compared to GPT-3 175B. Note that some of our\nhyperparameters are tuned on r = 4, which matches the parameter count of another baseline, and\nthus might not be optimal for other choices of r.\n0.100\n0.125\n0.150\n0.175\n0.200\nj\n451\n555\n658\n762\n865\n969\n1072\n1176 i\n(Wq, Ar = 4, i, j)\nj\nWq\n(Wq, Ar = 8, i, j)\nj\n(Wq, Ar = 64, i, j)\nj\nRandom\n(Wq, Arand, i, j)",
+    "source_title": "LoRA"
+  },
+  {
+    "question": "nd Tom Schaul for coining the name Adam. Thanks to\nKai Fan from Duke University",
+    "answer": "nd Tom Schaul for coining the name Adam. Thanks to\nKai Fan from Duke University for spotting an error in the original AdaMax derivation. Experiments\nin this work were partly carried out on the Dutch n",
+    "ground_truth_context": "nd Tom Schaul for coining the name Adam. Thanks to\nKai Fan from Duke University for spotting an error in the original AdaMax derivation. Experiments\nin this work were partly carried out on the Dutch national e-infrastructure with the support of SURF\nFoundation. Diederik Kingma is supported by the Google European Doctorate Fellowship in Deep\nLearning.\nREFERENCES\nAmari, Shun-Ichi. Natural gradient works ef\ufb01ciently in learning. Neural computation, 10(2):251\u2013276, 1998.",
+    "source_title": "Adam Optimizer"
+  }
+]

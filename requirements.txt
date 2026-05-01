@@ -1,14 +1,38 @@
-langchain>=0.2.0
-langchain-community>=0.2.0
+# Core RAG
 chromadb>=0.5.0
-openai>=1.0.0
 sentence-transformers>=3.0.0
-ragas>=0.1.0
-wandb>=0.17.0
-fastapi>=0.111.0
-uvicorn>=0.30.0
-pypdf>=4.0.0
-python-dotenv>=1.0.0
-pyyaml>=6.0
+
+# Local LLM — Qwen2.5-3B-Instruct
 torch>=2.0.0
 transformers>=4.40.0
+accelerate>=0.27.0       # required for device_map and model offloading
+
+# Indexing
+faiss-cpu>=1.8.0         # use faiss-gpu on Sol GPU nodes
+hnswlib>=0.8.0
+
+# PDF parsing (torch-free)
+pypdf>=4.0.0
+
+# Chunking
+nltk>=3.8.0
+docling>=2.0.0           # HybridChunker — pip install docling separately on Sol
+
+# Experiment tracking
+wandb>=0.17.0
+
+# API server
+fastapi>=0.111.0
+uvicorn>=0.30.0
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0
+requests>=2.31.0
+numpy>=1.26.0
+
+# Eval dataset loading
+datasets>=2.19.0
+
+# Testing
+pytest>=8.0.0

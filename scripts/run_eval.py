@@ -1,37 +1,14 @@
 """
 scripts/run_eval.py
 
-Runs RAGAS evaluation on the best chunking+index config found from sweep,
-OR evaluates all configs and produces a comparison table.
+Final evaluation — runs all chunking methods, logs comparison table to W&B.
+Uses local Qwen2.5-3B-Instruct generator — no API key needed.
 
 Usage:
-    # Evaluate a single config
-    python scripts/run_eval.py --method hybrid --index hnsw --top-k 5
-
-    # Evaluate all saved chunk methods against flat index (quick comparison)
     python scripts/run_eval.py --all
+    python scripts/run_eval.py --method paragraph --index flat --top-k 5
 """
-# Point RAGAS to Gemini instead of OpenAI
-from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
-from ragas import evaluate
-from ragas.llms import LangchainLLMWrapper
-from ragas.embeddings import LangchainEmbeddingsWrapper
 
-ragas_llm = LangchainLLMWrapper(ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
-    google_api_key=os.environ["GOOGLE_API_KEY"]
-))
-ragas_embeddings = LangchainEmbeddingsWrapper(GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
-    google_api_key=os.environ["GOOGLE_API_KEY"]
-))
-
-scores = evaluate(
-    dataset,
-    metrics=[faithfulness, answer_relevancy, context_recall],
-    llm=ragas_llm,
-    embeddings=ragas_embeddings,
-)
 import os
 import sys
 import json
@@ -47,7 +24,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 PROCESSED_DIR = "data/processed"
-EVAL_DIR = "data/eval"
 
 
 def load_config(path="configs/config.yaml"):
@@ -55,13 +31,7 @@ def load_config(path="configs/config.yaml"):
         return yaml.safe_load(f)
 
 
-def evaluate_config(
-    chunking_method: str,
-    index_type: str,
-    top_k: int,
-    config: dict,
-    qa_path: str,
-) -> dict:
+def evaluate_config(chunking_method, index_type, top_k, config, qa_path):
     from src.indexers import get_indexer
     from src.generator import Generator
 
@@ -69,16 +39,20 @@ def evaluate_config(
     if not os.path.exists(chunks_path):
         print(f"[skip] {chunks_path} not found")
         return {}
+    if not os.path.exists(qa_path):
+        print(f"[skip] {qa_path} not found")
+        return {}
 
     with open(chunks_path) as f:
         chunks = json.load(f)
     with open(qa_path) as f:
         qa_pairs = json.load(f)
 
+    extra = {"persist_dir": f"./chroma_db_{chunking_method}"} if index_type == "flat" else {}
     indexer = get_indexer(
         index_type=index_type,
         embedding_model=config["embedding"]["model"],
-        persist_dir=f"./chroma_db_{chunking_method}",
+        **extra,
     )
     indexer.add(chunks)
     generator = Generator()
@@ -92,44 +66,38 @@ def evaluate_config(
             "question": qa["question"],
             "answer": answer,
             "contexts": contexts,
-            "ground_truth": qa.get("answer", ""),
+            "ground_truth_context": qa.get("ground_truth_context", ""),
         })
 
-    try:
-        from ragas import evaluate
-        from ragas.metrics import faithfulness, answer_relevancy, context_recall
-        from datasets import Dataset
+    # Context hit rate
+    hits = sum(
+        1 for qa, r in zip(qa_pairs, results)
+        if qa.get("ground_truth_context", "") and
+        any(qa["ground_truth_context"][:80] in ctx for ctx in r["contexts"])
+    )
+    context_hit_rate = hits / len(qa_pairs) if qa_pairs else 0.0
 
-        dataset = Dataset.from_list(results)
-        scores = evaluate(dataset, metrics=[faithfulness, answer_relevancy, context_recall])
-        return {
-            "chunking_method": chunking_method,
-            "index_type": index_type,
-            "top_k": top_k,
-            "faithfulness": float(scores["faithfulness"]),
-            "answer_relevancy": float(scores["answer_relevancy"]),
-            "context_recall": float(scores["context_recall"]),
-            "num_chunks": len(chunks),
-        }
-    except Exception as e:
-        print(f"[warn] RAGAS error: {e}")
-        return {"chunking_method": chunking_method, "index_type": index_type, "error": str(e)}
+    return {
+        "chunking_method": chunking_method,
+        "index_type": index_type,
+        "top_k": top_k,
+        "context_hit_rate": context_hit_rate,
+        "num_chunks": len(chunks),
+        "num_qa_pairs": len(qa_pairs),
+    }
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--method", default="paragraph",
                         choices=["fixed", "sentence", "paragraph", "semantic", "hybrid"])
-    parser.add_argument("--index", default="flat",
-                        choices=["flat", "faiss", "hnsw"])
+    parser.add_argument("--index", default="flat", choices=["flat", "faiss", "hnsw"])
     parser.add_argument("--top-k", type=int, default=5)
-    parser.add_argument("--qa-path", default="data/eval/qa_pairs_arxiv.json")
-    parser.add_argument("--all", action="store_true",
-                        help="Evaluate all available chunking methods")
+    parser.add_argument("--qa-path", default="data/eval/qa_self_retrieval.json")
+    parser.add_argument("--all", action="store_true")
     args = parser.parse_args()
 
     config = load_config()
-
     wandb.init(
         project=config["wandb"]["project"],
         entity=config["wandb"]["entity"],
@@ -141,47 +109,34 @@ if __name__ == "__main__":
         methods = ["fixed", "sentence", "paragraph", "semantic", "hybrid"]
         all_results = []
         for method in methods:
-            chunks_path = os.path.join(PROCESSED_DIR, f"chunks_{method}.json")
-            if not os.path.exists(chunks_path):
-                print(f"[skip] {method} chunks not found")
+            if not os.path.exists(os.path.join(PROCESSED_DIR, f"chunks_{method}.json")):
+                print(f"[skip] {method} not ingested yet")
                 continue
-            print(f"\n[eval] method={method}, index=flat, top_k={args.top_k}")
+            print(f"\n[eval] {method} | flat | top_k={args.top_k}")
             res = evaluate_config(method, "flat", args.top_k, config, args.qa_path)
             if res:
                 all_results.append(res)
 
-        # Log comparison table to W&B
         if all_results:
-            table = wandb.Table(
-                columns=["chunking_method", "index_type", "top_k",
-                         "faithfulness", "answer_relevancy", "context_recall", "num_chunks"]
-            )
+            table = wandb.Table(columns=["chunking_method", "index_type", "top_k",
+                                          "context_hit_rate", "num_chunks"])
             for r in all_results:
-                table.add_data(
-                    r.get("chunking_method", ""),
-                    r.get("index_type", ""),
-                    r.get("top_k", 0),
-                    r.get("faithfulness", 0),
-                    r.get("answer_relevancy", 0),
-                    r.get("context_recall", 0),
-                    r.get("num_chunks", 0),
-                )
+                table.add_data(r["chunking_method"], r["index_type"], r["top_k"],
+                               r["context_hit_rate"], r["num_chunks"])
             wandb.log({"eval_comparison_table": table})
 
-            # Save results locally
-            out_path = "data/eval/eval_results.json"
-            with open(out_path, "w") as f:
+            out = "data/eval/eval_results.json"
+            Path(out).parent.mkdir(parents=True, exist_ok=True)
+            with open(out, "w") as f:
                 json.dump(all_results, f, indent=2)
-            print(f"\n✅ Results saved → {out_path}")
-            print("\n📊 Summary:")
-            for r in all_results:
-                print(f"  {r.get('chunking_method','?'):12s} | "
-                      f"faithfulness={r.get('faithfulness',0):.3f} | "
-                      f"recall={r.get('context_recall',0):.3f}")
+            print(f"\n✅ Saved → {out}")
+            print("\n📊 Summary (sorted by context_hit_rate):")
+            for r in sorted(all_results, key=lambda x: x["context_hit_rate"], reverse=True):
+                print(f"  {r['chunking_method']:12s} | hit_rate={r['context_hit_rate']:.3f} | chunks={r['num_chunks']}")
     else:
         res = evaluate_config(args.method, args.index, args.top_k, config, args.qa_path)
         if res:
             wandb.log({k: v for k, v in res.items() if isinstance(v, (int, float))})
-            print(f"\n✅ Eval complete: {res}")
+            print(f"\n✅ {res}")
 
     wandb.finish()

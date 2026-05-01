@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--top_k", type=int, default=5)
 
-    parser.add_argument("--qa_path", default="data/eval/hf_qa_subset.json")
+    parser.add_argument("--qa_path", default="data/eval/qa_self_retrieval.json")
 
     args = parser.parse_args()
 

@@ -1,33 +1,17 @@
-
 wandb:
-
   project: "rag-document-assistant"
-
   entity: "ngangada-arizona-state-university"
 
-
-
 embedding:
-
   model: "sentence-transformers/all-MiniLM-L6-v2"
-
   chunk_size: 512
-
   chunk_overlap: 50
 
-
-
 retriever:
-
   top_k: 5
 
-
-
 llm:
-
-  model: "gemini-2.0-flash"
-
+  # Local HuggingFace model — no API key needed, runs on A100 GPU
+  model: "Qwen/Qwen2.5-3B-Instruct"
   temperature: 0.0
-
-  max_tokens: 1024
-
+  max_tokens: 256
