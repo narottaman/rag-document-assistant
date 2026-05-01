@@ -1,10 +1,5 @@
 """
-src/chunkers/base.py        - Abstract base class
-src/chunkers/fixed.py       - Fixed size chunking
-src/chunkers/sentence.py    - Sentence-based chunking
-src/chunkers/paragraph.py   - Paragraph-based chunking
-src/chunkers/semantic.py    - Semantic similarity chunking
-src/chunkers/hybrid.py      - Docling HybridChunker (layout-aware)
+src/chunkers.py
 
 All chunkers return a unified list of dicts:
 [{
@@ -17,17 +12,56 @@ All chunkers return a unified list of dicts:
     "chunk_method": str,
     "chunk_size": int,      # actual char length
 }]
+
+KEY DESIGN DECISIONS:
+- Uses pypdf directly (NOT LangChain PyPDFLoader) to avoid torchvision
+  circular import on Sol HPC where system torch+torchvision are mismatched.
+- sentence-transformers is imported lazily (only in SemanticChunker)
+  so fixed/paragraph/sentence chunkers never touch torch.
+- nltk is installed in the venv, not the base conda env.
+
+OVERLAP PER METHOD:
+  fixed     → chunk_overlap chars (default 50)
+  paragraph → chunk_overlap chars (default 50), recursive separators
+  sentence  → overlap_sentences sentences (default 1)
+  semantic  → NO overlap — splits on cosine similarity drop
+  hybrid    → NO overlap — Docling respects document layout boundaries
 """
+
+from abc import ABC, abstractmethod
+from typing import List, Dict, Any, Optional
+import os
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PDF TEXT EXTRACTION (torch-free)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def extract_pages_from_pdf(pdf_path: str) -> List[Dict[str, Any]]:
+    """
+    Extract text per page using pypdf directly.
+    Returns: [{"page_num": int, "text": str}, ...]
+    Never imports torch, transformers, or LangChain.
+    """
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        raise ImportError("pypdf not installed. Run: pip install pypdf")
+
+    reader = PdfReader(pdf_path)
+    pages = []
+    for i, page in enumerate(reader.pages):
+        text = page.extract_text() or ""
+        if text.strip():
+            pages.append({"page_num": i + 1, "text": text})
+    return pages
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # BASE
 # ─────────────────────────────────────────────────────────────────────────────
-from abc import ABC, abstractmethod
-from typing import List, Dict, Any
-
 
 class BaseChunker(ABC):
-    """Every chunker must implement chunk_file() and chunk_text()."""
 
     def _make_record(
         self,
@@ -35,8 +69,8 @@ class BaseChunker(ABC):
         text: str,
         title: str,
         filename: str,
-        heading: str | None = None,
-        page_num: int | None = None,
+        heading: Optional[str] = None,
+        page_num: Optional[int] = None,
         method: str = "base",
     ) -> Dict[str, Any]:
         return {
@@ -52,175 +86,205 @@ class BaseChunker(ABC):
 
     @abstractmethod
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
-        """Chunk a PDF and return list of records."""
         ...
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# FIXED SIZE
+# FIXED SIZE CHUNKER
+# overlap: chunk_overlap characters (default 50)
 # ─────────────────────────────────────────────────────────────────────────────
-import os
 
 class FixedSizeChunker(BaseChunker):
     """
-    Split text into fixed-size character windows with overlap.
-    Fastest, but ignores semantic boundaries.
+    Split text into fixed character windows with overlap.
+    Fastest method. Ignores semantic boundaries.
+    Overlap: chunk_overlap chars between consecutive chunks.
     """
 
     def __init__(self, chunk_size: int = 512, chunk_overlap: int = 50):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
 
+    def _split_text(self, text: str) -> List[str]:
+        chunks = []
+        start = 0
+        step = self.chunk_size - self.chunk_overlap
+        if step <= 0:
+            step = self.chunk_size
+        while start < len(text):
+            end = start + self.chunk_size
+            chunk = text[start:end].strip()
+            if chunk:
+                chunks.append(chunk)
+            start += step
+        return chunks
+
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
-        from langchain_community.document_loaders import PyPDFLoader
-        from langchain.text_splitter import CharacterTextSplitter
-
-        loader = PyPDFLoader(pdf_path)
-        pages = loader.load()
-
-        splitter = CharacterTextSplitter(
-            chunk_size=self.chunk_size,
-            chunk_overlap=self.chunk_overlap,
-            separator="",
-        )
-
+        pages = extract_pages_from_pdf(pdf_path)
+        filename = os.path.basename(pdf_path)
         records = []
         chunk_id = 0
-        filename = os.path.basename(pdf_path)
 
         for page in pages:
-            splits = splitter.split_text(page.page_content)
-            for text in splits:
-                if text.strip():
-                    records.append(
-                        self._make_record(
-                            chunk_id=chunk_id,
-                            text=text,
-                            title=title,
-                            filename=filename,
-                            page_num=page.metadata.get("page", None),
-                            method=f"fixed_{self.chunk_size}",
-                        )
-                    )
+            for text in self._split_text(page["text"]):
+                if len(text.strip()) > 20:
+                    records.append(self._make_record(
+                        chunk_id=chunk_id,
+                        text=text,
+                        title=title,
+                        filename=filename,
+                        page_num=page["page_num"],
+                        method=f"fixed_{self.chunk_size}",
+                    ))
                     chunk_id += 1
 
         return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# SENTENCE-BASED
+# SENTENCE CHUNKER
+# overlap: overlap_sentences sentences (default 1)
 # ─────────────────────────────────────────────────────────────────────────────
 
 class SentenceChunker(BaseChunker):
     """
     Split on sentence boundaries, group N sentences per chunk.
-    Preserves readable units.
+    Overlap: overlap_sentences sentences shared between consecutive chunks.
+    Preserves readable, grammatically complete units.
     """
 
     def __init__(self, sentences_per_chunk: int = 5, overlap_sentences: int = 1):
         self.sentences_per_chunk = sentences_per_chunk
         self.overlap_sentences = overlap_sentences
 
+    def _ensure_nltk(self):
+        import nltk
+        for resource in ["punkt", "punkt_tab"]:
+            try:
+                nltk.data.find(f"tokenizers/{resource}")
+            except LookupError:
+                nltk.download(resource, quiet=True)
+
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
         import nltk
-        from langchain_community.document_loaders import PyPDFLoader
+        self._ensure_nltk()
 
-        # Download punkt tokenizer if not present
-        try:
-            nltk.data.find("tokenizers/punkt")
-        except LookupError:
-            nltk.download("punkt", quiet=True)
-            nltk.download("punkt_tab", quiet=True)
-
-        loader = PyPDFLoader(pdf_path)
-        pages = loader.load()
+        pages = extract_pages_from_pdf(pdf_path)
         filename = os.path.basename(pdf_path)
-
         records = []
         chunk_id = 0
 
         for page in pages:
-            sentences = nltk.sent_tokenize(page.page_content)
+            sentences = nltk.sent_tokenize(page["text"])
+            if not sentences:
+                continue
+
             step = max(1, self.sentences_per_chunk - self.overlap_sentences)
 
             for i in range(0, len(sentences), step):
                 group = sentences[i: i + self.sentences_per_chunk]
-                text = " ".join(group)
-                if text.strip():
-                    records.append(
-                        self._make_record(
-                            chunk_id=chunk_id,
-                            text=text,
-                            title=title,
-                            filename=filename,
-                            page_num=page.metadata.get("page", None),
-                            method=f"sentence_{self.sentences_per_chunk}s",
-                        )
-                    )
+                text = " ".join(group).strip()
+                if len(text) > 20:
+                    records.append(self._make_record(
+                        chunk_id=chunk_id,
+                        text=text,
+                        title=title,
+                        filename=filename,
+                        page_num=page["page_num"],
+                        method=f"sentence_{self.sentences_per_chunk}s_ov{self.overlap_sentences}",
+                    ))
                     chunk_id += 1
 
         return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PARAGRAPH-BASED (Recursive)
+# PARAGRAPH CHUNKER (Recursive)
+# overlap: chunk_overlap characters (default 50)
 # ─────────────────────────────────────────────────────────────────────────────
 
 class ParagraphChunker(BaseChunker):
     """
-    LangChain RecursiveCharacterTextSplitter — splits on \\n\\n → \\n → spaces.
-    Best general-purpose chunker for prose text.
+    Recursive splitting: tries \\n\\n → \\n → '. ' → ' ' → '' in order.
+    Best general-purpose chunker for prose/academic text.
+    Overlap: chunk_overlap chars shared between consecutive chunks.
     """
 
     def __init__(self, chunk_size: int = 512, chunk_overlap: int = 50):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
+        self.separators = ["\n\n", "\n", ". ", " ", ""]
+
+    def _recursive_split(self, text: str, separators: List[str]) -> List[str]:
+        """Recursively split using the first separator that fits."""
+        if len(text) <= self.chunk_size:
+            return [text] if text.strip() else []
+
+        sep = separators[0] if separators else ""
+        remaining_seps = separators[1:] if len(separators) > 1 else []
+
+        splits = text.split(sep) if sep else list(text)
+        chunks = []
+        current = ""
+
+        for split in splits:
+            piece = (current + sep + split) if current else split
+            if len(piece) <= self.chunk_size:
+                current = piece
+            else:
+                if current.strip():
+                    chunks.append(current.strip())
+                # Overlap: carry last chunk_overlap chars into next chunk
+                if self.chunk_overlap > 0 and current:
+                    overlap_text = current[-self.chunk_overlap:]
+                    current = overlap_text + sep + split
+                else:
+                    current = split
+
+                # If single split still too big, recurse
+                if len(current) > self.chunk_size and remaining_seps:
+                    sub = self._recursive_split(current, remaining_seps)
+                    chunks.extend(sub[:-1])
+                    current = sub[-1] if sub else ""
+
+        if current.strip():
+            chunks.append(current.strip())
+
+        return [c for c in chunks if len(c.strip()) > 20]
 
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
-        from langchain_community.document_loaders import PyPDFLoader
-        from langchain.text_splitter import RecursiveCharacterTextSplitter
-
-        loader = PyPDFLoader(pdf_path)
-        pages = loader.load()
+        pages = extract_pages_from_pdf(pdf_path)
         filename = os.path.basename(pdf_path)
-
-        splitter = RecursiveCharacterTextSplitter(
-            chunk_size=self.chunk_size,
-            chunk_overlap=self.chunk_overlap,
-            separators=["\n\n", "\n", ". ", " ", ""],
-        )
-
         records = []
         chunk_id = 0
 
         for page in pages:
-            splits = splitter.split_text(page.page_content)
+            splits = self._recursive_split(page["text"], self.separators)
             for text in splits:
-                if text.strip():
-                    records.append(
-                        self._make_record(
-                            chunk_id=chunk_id,
-                            text=text,
-                            title=title,
-                            filename=filename,
-                            page_num=page.metadata.get("page", None),
-                            method=f"paragraph_{self.chunk_size}",
-                        )
-                    )
-                    chunk_id += 1
+                records.append(self._make_record(
+                    chunk_id=chunk_id,
+                    text=text,
+                    title=title,
+                    filename=filename,
+                    page_num=page["page_num"],
+                    method=f"paragraph_{self.chunk_size}_ov{self.chunk_overlap}",
+                ))
+                chunk_id += 1
 
         return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SEMANTIC CHUNKER
+# overlap: NONE — splits on cosine similarity drop between sentences
 # ─────────────────────────────────────────────────────────────────────────────
 
 class SemanticChunker(BaseChunker):
     """
     Groups sentences by embedding cosine similarity.
-    Splits when similarity drops below threshold.
-    GPU-accelerated if available (run on Sol).
+    Splits when similarity between adjacent sentences drops below threshold.
+    NO character overlap — the split boundary IS the semantic break.
+    GPU-accelerated automatically when running on Sol with CUDA available.
     """
 
     def __init__(
@@ -236,6 +300,7 @@ class SemanticChunker(BaseChunker):
 
     def _get_model(self):
         if self._model is None:
+            # Lazy import — only SemanticChunker touches torch
             from sentence_transformers import SentenceTransformer
             self._model = SentenceTransformer(self.embedding_model_name)
         return self._model
@@ -244,78 +309,78 @@ class SemanticChunker(BaseChunker):
         import numpy as np
         return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-8))
 
+    def _ensure_nltk(self):
+        import nltk
+        for resource in ["punkt", "punkt_tab"]:
+            try:
+                nltk.data.find(f"tokenizers/{resource}")
+            except LookupError:
+                nltk.download(resource, quiet=True)
+
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
         import nltk
         import numpy as np
-        from langchain_community.document_loaders import PyPDFLoader
+        self._ensure_nltk()
 
-        try:
-            nltk.data.find("tokenizers/punkt")
-        except LookupError:
-            nltk.download("punkt", quiet=True)
-            nltk.download("punkt_tab", quiet=True)
-
-        loader = PyPDFLoader(pdf_path)
-        pages = loader.load()
+        pages = extract_pages_from_pdf(pdf_path)
         filename = os.path.basename(pdf_path)
         model = self._get_model()
-
-        all_records = []
+        records = []
         chunk_id = 0
 
         for page in pages:
-            sentences = nltk.sent_tokenize(page.page_content)
-            if not sentences:
+            sentences = nltk.sent_tokenize(page["text"])
+            if len(sentences) < 2:
                 continue
 
             embeddings = model.encode(sentences, show_progress_bar=False)
-
-            # Group sentences greedily by similarity
-            groups = []
+            groups: List[List[str]] = []
             current_group = [sentences[0]]
-            current_emb = embeddings[0]
+            current_emb = embeddings[0].copy()
 
             for i in range(1, len(sentences)):
                 sim = self._cosine_sim(current_emb, embeddings[i])
                 if sim >= self.similarity_threshold:
                     current_group.append(sentences[i])
-                    # Update running mean embedding
+                    # Running mean embedding for the group
                     current_emb = np.mean(
-                        [embeddings[j] for j in range(len(current_group))], axis=0
+                        embeddings[max(0, i - len(current_group) + 1): i + 1],
+                        axis=0,
                     )
                 else:
                     groups.append(current_group)
                     current_group = [sentences[i]]
-                    current_emb = embeddings[i]
+                    current_emb = embeddings[i].copy()
 
             groups.append(current_group)
 
             for group in groups:
-                text = " ".join(group)
-                if len(text.strip()) >= self.min_chunk_size:
-                    all_records.append(
-                        self._make_record(
-                            chunk_id=chunk_id,
-                            text=text,
-                            title=title,
-                            filename=filename,
-                            page_num=page.metadata.get("page", None),
-                            method=f"semantic_{self.similarity_threshold}",
-                        )
-                    )
+                text = " ".join(group).strip()
+                if len(text) >= self.min_chunk_size:
+                    records.append(self._make_record(
+                        chunk_id=chunk_id,
+                        text=text,
+                        title=title,
+                        filename=filename,
+                        page_num=page["page_num"],
+                        method=f"semantic_t{self.similarity_threshold}",
+                    ))
                     chunk_id += 1
 
-        return all_records
+        return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# HYBRID (Docling — layout-aware)
+# HYBRID DOCLING CHUNKER
+# overlap: NONE — respects document layout (headings, tables, captions)
 # ─────────────────────────────────────────────────────────────────────────────
 
 class HybridDoclingChunker(BaseChunker):
     """
-    Uses Docling's HybridChunker — respects headings, tables, captions.
-    Best structural fidelity for academic PDFs.
+    Docling HybridChunker — layout-aware PDF parsing.
+    Respects headings, tables, figure captions, and section boundaries.
+    NO overlap — structural boundaries are the natural split points.
+    Best fidelity for academic papers.
     Requires: pip install docling
     """
 
@@ -326,18 +391,12 @@ class HybridDoclingChunker(BaseChunker):
             from docling.datamodel.pipeline_options import PdfPipelineOptions
             from docling.document_converter import DocumentConverter, PdfFormatOption
         except ImportError:
-            raise ImportError(
-                "docling not installed. Run: pip install docling"
-            )
+            raise ImportError("docling not installed. Run: pip install docling")
 
-        pdf_pipeline_options = PdfPipelineOptions(
-            do_ocr=False, do_table_structure=True
-        )
+        pipeline_opts = PdfPipelineOptions(do_ocr=False, do_table_structure=True)
         converter = DocumentConverter(
             format_options={
-                InputFormat.PDF: PdfFormatOption(
-                    pipeline_options=pdf_pipeline_options
-                )
+                InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_opts)
             }
         )
         chunker = HybridChunker()
@@ -349,9 +408,7 @@ class HybridDoclingChunker(BaseChunker):
 
         for chunk in chunker.chunk(dl_doc=doc):
             d = chunk.model_dump()
-            heading = (
-                d["meta"]["headings"][0] if d["meta"].get("headings") else None
-            )
+            heading = d["meta"]["headings"][0] if d["meta"].get("headings") else None
             page_num = None
             try:
                 page_num = d["meta"]["doc_items"][0]["prov"][0]["page_no"]
@@ -360,42 +417,47 @@ class HybridDoclingChunker(BaseChunker):
 
             text = chunk.text.strip()
             if text:
-                records.append(
-                    self._make_record(
-                        chunk_id=chunk_id,
-                        text=text,
-                        title=title,
-                        filename=filename,
-                        heading=heading,
-                        page_num=page_num,
-                        method="hybrid_docling",
-                    )
-                )
+                records.append(self._make_record(
+                    chunk_id=chunk_id,
+                    text=text,
+                    title=title,
+                    filename=filename,
+                    heading=heading,
+                    page_num=page_num,
+                    method="hybrid_docling",
+                ))
                 chunk_id += 1
 
         return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# FACTORY — get any chunker by name
+# FACTORY
 # ─────────────────────────────────────────────────────────────────────────────
+
+CHUNKER_REGISTRY = {
+    "fixed":     FixedSizeChunker,
+    "sentence":  SentenceChunker,
+    "paragraph": ParagraphChunker,
+    "semantic":  SemanticChunker,
+    "hybrid":    HybridDoclingChunker,
+}
+
 
 def get_chunker(method: str, **kwargs) -> BaseChunker:
     """
     Factory function.
-    Usage: get_chunker("fixed", chunk_size=256)
-           get_chunker("semantic", similarity_threshold=0.6)
+
+    Usage:
+        get_chunker("fixed", chunk_size=256, chunk_overlap=25)
+        get_chunker("sentence", sentences_per_chunk=5, overlap_sentences=1)
+        get_chunker("paragraph", chunk_size=512, chunk_overlap=50)
+        get_chunker("semantic", similarity_threshold=0.5)
+        get_chunker("hybrid")
     """
     method = method.lower()
-    mapping = {
-        "fixed":   FixedSizeChunker,
-        "sentence": SentenceChunker,
-        "paragraph": ParagraphChunker,
-        "semantic": SemanticChunker,
-        "hybrid":  HybridDoclingChunker,
-    }
-    if method not in mapping:
+    if method not in CHUNKER_REGISTRY:
         raise ValueError(
-            f"Unknown chunker '{method}'. Choose from: {list(mapping.keys())}"
+            f"Unknown chunker '{method}'. Choose from: {list(CHUNKER_REGISTRY.keys())}"
         )
-    return mapping[method](**kwargs)
+    return CHUNKER_REGISTRY[method](**kwargs)

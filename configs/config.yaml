@@ -1,6 +1,6 @@
 wandb:
   project: "rag-document-assistant"
-  entity: "ngangada"
+  entity: "ngangada-arizona-state-university"
 
 embedding:
   model: "sentence-transformers/all-MiniLM-L6-v2"
