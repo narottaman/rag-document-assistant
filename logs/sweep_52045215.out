@@ -1,0 +1,237 @@
+Job: 52045215 | Node: sg021
+Fri May  1 01:26:55 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:01:00.0 Off |                    0 |
+| N/A   45C    P0            187W /  500W |   14885MiB /  81920MiB |     94%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2171665      C   ...nmin1/envs/FNO_tmp/bin/python      14874MiB |
++-----------------------------------------------------------------------------------------+
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 40.0s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.530 | latency=49.2ms
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 14.6s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.560 | latency=40.1ms
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 13.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.600 | latency=36.4ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 18.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.520 | latency=13.5ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 10.7s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.540 | latency=13.4ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 18.6s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.600 | latency=14.3ms
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 19.0s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.020 | latency=26.9ms
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 22.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.030 | latency=32.5ms
+[exp] 1847 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[exp] Index built in 22.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.030 | latency=29.4ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 20.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.510 | latency=15.6ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 15.7s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.560 | latency=14.9ms
+[exp] 1847 chunks | 100 QA pairs
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[exp] Index built in 20.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.580 | latency=14.8ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 13.9s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.370 | latency=46.8ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 13.3s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.430 | latency=42.8ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 20.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.550 | latency=36.7ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 17.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.370 | latency=11.7ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 10.0s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.430 | latency=11.6ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 17.7s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.540 | latency=12.5ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 24.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.050 | latency=42.5ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 14.2s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.060 | latency=52.2ms
+[exp] 1498 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[exp] Index built in 23.8s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.080 | latency=53.0ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 12.2s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.400 | latency=15.9ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 19.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.460 | latency=16.1ms
+[exp] 1498 chunks | 100 QA pairs
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[exp] Index built in 20.2s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.540 | latency=15.7ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 21.9s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.750 | latency=39.5ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 21.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.780 | latency=31.4ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 21.6s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.850 | latency=30.2ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 18.3s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.760 | latency=14.3ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 19.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.780 | latency=13.1ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 20.7s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.860 | latency=14.0ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 24.3s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.130 | latency=34.7ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 15.4s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.140 | latency=37.3ms
+[exp] 1983 chunks | 100 QA pairs
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[exp] Index built in 23.2s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.160 | latency=31.2ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 19.8s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.810 | latency=15.6ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 13.2s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.860 | latency=15.9ms
+[exp] 1983 chunks | 100 QA pairs
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[exp] Index built in 20.5s
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[exp] context_hit_rate=0.870 | latency=16.3ms
