@@ -1,0 +1,32 @@
+{
+  "os":  "Linux-4.18.0-553.77.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "python":  "CPython 3.10.18",
+  "startedAt":  "2026-05-01T01:24:26.904465Z",
+  "args":  [
+    "--method",
+    "fixed"
+  ],
+  "program":  "/scratch/ngangada/portfolio/rag-document-assistant/scripts/run_ingest.py",
+  "codePath":  "scripts/run_ingest.py",
+  "codePathLocal":  "scripts/run_ingest.py",
+  "git":  {
+    "remote":  "https://narottaman:@github.com/narottaman/rag-document-assistant.git",
+    "commit":  "b464dbcca936e78cc9c3161f6993a8c85b259f1a"
+  },
+  "email":  "ngangada@asu.edu",
+  "root":  "/scratch/ngangada/portfolio/rag-document-assistant",
+  "host":  "sol-login02",
+  "executable":  "/home/ngangada/.venv/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "137369751552",
+      "used":  "78003044352"
+    }
+  },
+  "memory":  {
+    "total":  "33149075456"
+  },
+  "writerId":  "gpr4w2qw7n773q0vcmn4chx1slaiqk58"
+}

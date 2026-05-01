@@ -18,7 +18,9 @@ KEY DESIGN DECISIONS:
   circular import on Sol HPC where system torch+torchvision are mismatched.
 - sentence-transformers is imported lazily (only in SemanticChunker)
   so fixed/paragraph/sentence chunkers never touch torch.
-- nltk is installed in the venv, not the base conda env.
+- nltk punkt is downloaded via SSL — Sol login nodes block SSL outbound.
+  We use a regex fallback sentence splitter that requires zero downloads.
+  If nltk punkt IS available locally it uses that; otherwise falls back gracefully.
 
 OVERLAP PER METHOD:
   fixed     → chunk_overlap chars (default 50)
@@ -31,6 +33,7 @@ OVERLAP PER METHOD:
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 import os
+import re
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -55,6 +58,71 @@ def extract_pages_from_pdf(pdf_path: str) -> List[Dict[str, Any]]:
         if text.strip():
             pages.append({"page_num": i + 1, "text": text})
     return pages
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SENTENCE TOKENIZER — SSL-safe, works on Sol without any nltk downloads
+# ─────────────────────────────────────────────────────────────────────────────
+
+def sent_tokenize_safe(text: str) -> List[str]:
+    """
+    SSL-safe sentence tokenizer for Sol HPC.
+
+    Strategy:
+      1. Check if nltk punkt data EXISTS LOCALLY — if yes, use it (best quality)
+      2. Never call nltk.download() — that requires SSL which Sol blocks
+      3. Fall back to regex splitter — handles academic PDFs well
+
+    The regex fallback:
+      - Protects abbreviations: Fig., et al., vs., Dr., Prof., e.g., i.e., etc.
+      - Protects decimal numbers: 3.14, 0.001
+      - Splits on '. '/'! '/'? ' followed by capital letter or quote
+    """
+    # ── Try nltk only if data already exists locally ─────────────────────────
+    try:
+        import nltk
+        found = False
+        for resource in ["tokenizers/punkt_tab", "tokenizers/punkt"]:
+            try:
+                nltk.data.find(resource)
+                found = True
+                break
+            except LookupError:
+                pass
+        if found:
+            return nltk.sent_tokenize(text)
+        # Data not found locally — skip to regex, no download attempt
+    except Exception:
+        pass
+
+    # ── Regex fallback ────────────────────────────────────────────────────────
+    # Step 1: protect abbreviation dots with a safe placeholder
+    placeholder = "\x00DOT\x00"
+    abbreviations = [
+        r"Fig\.", r"et al\.", r"vs\.", r"Dr\.", r"Prof\.",
+        r"Mr\.", r"Mrs\.", r"Ms\.", r"St\.", r"No\.", r"Eq\.",
+        r"Sec\.", r"Tab\.", r"App\.", r"approx\.",
+        r"e\.g\.", r"i\.e\.", r"cf\.", r"al\.", r"arXiv\.",
+        r"pp\.", r"vol\.", r"dept\.",
+    ]
+    protected = text
+    for abbr in abbreviations:
+        protected = re.sub(abbr, lambda m: m.group().replace(".", placeholder), protected)
+
+    # Step 2: protect decimal numbers like 3.14 or 1e-5
+    protected = re.sub(r"(\d)\.(\d)", r"\1" + placeholder + r"\2", protected)
+
+    # Step 3: split on sentence-ending punctuation followed by whitespace + capital
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z\"\'(])", protected)
+
+    # Step 4: restore placeholders and filter
+    sentences = []
+    for part in parts:
+        restored = part.replace(placeholder, ".").strip()
+        if len(restored) > 10:
+            sentences.append(restored)
+
+    return sentences if sentences else [text.strip()]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -148,34 +216,23 @@ class FixedSizeChunker(BaseChunker):
 
 class SentenceChunker(BaseChunker):
     """
-    Split on sentence boundaries, group N sentences per chunk.
+    Split on sentence boundaries using sent_tokenize_safe().
+    Works on Sol HPC even when SSL is blocked — no nltk download needed.
     Overlap: overlap_sentences sentences shared between consecutive chunks.
-    Preserves readable, grammatically complete units.
     """
 
     def __init__(self, sentences_per_chunk: int = 5, overlap_sentences: int = 1):
         self.sentences_per_chunk = sentences_per_chunk
         self.overlap_sentences = overlap_sentences
 
-    def _ensure_nltk(self):
-        import nltk
-        for resource in ["punkt", "punkt_tab"]:
-            try:
-                nltk.data.find(f"tokenizers/{resource}")
-            except LookupError:
-                nltk.download(resource, quiet=True)
-
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
-        import nltk
-        self._ensure_nltk()
-
         pages = extract_pages_from_pdf(pdf_path)
         filename = os.path.basename(pdf_path)
         records = []
         chunk_id = 0
 
         for page in pages:
-            sentences = nltk.sent_tokenize(page["text"])
+            sentences = sent_tokenize_safe(page["text"])   # ← SSL-safe
             if not sentences:
                 continue
 
@@ -216,7 +273,6 @@ class ParagraphChunker(BaseChunker):
         self.separators = ["\n\n", "\n", ". ", " ", ""]
 
     def _recursive_split(self, text: str, separators: List[str]) -> List[str]:
-        """Recursively split using the first separator that fits."""
         if len(text) <= self.chunk_size:
             return [text] if text.strip() else []
 
@@ -234,14 +290,12 @@ class ParagraphChunker(BaseChunker):
             else:
                 if current.strip():
                     chunks.append(current.strip())
-                # Overlap: carry last chunk_overlap chars into next chunk
                 if self.chunk_overlap > 0 and current:
                     overlap_text = current[-self.chunk_overlap:]
                     current = overlap_text + sep + split
                 else:
                     current = split
 
-                # If single split still too big, recurse
                 if len(current) > self.chunk_size and remaining_seps:
                     sub = self._recursive_split(current, remaining_seps)
                     chunks.extend(sub[:-1])
@@ -284,6 +338,7 @@ class SemanticChunker(BaseChunker):
     Groups sentences by embedding cosine similarity.
     Splits when similarity between adjacent sentences drops below threshold.
     NO character overlap — the split boundary IS the semantic break.
+    Uses sent_tokenize_safe() — works on Sol without SSL access.
     GPU-accelerated automatically when running on Sol with CUDA available.
     """
 
@@ -300,7 +355,6 @@ class SemanticChunker(BaseChunker):
 
     def _get_model(self):
         if self._model is None:
-            # Lazy import — only SemanticChunker touches torch
             from sentence_transformers import SentenceTransformer
             self._model = SentenceTransformer(self.embedding_model_name)
         return self._model
@@ -309,18 +363,8 @@ class SemanticChunker(BaseChunker):
         import numpy as np
         return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-8))
 
-    def _ensure_nltk(self):
-        import nltk
-        for resource in ["punkt", "punkt_tab"]:
-            try:
-                nltk.data.find(f"tokenizers/{resource}")
-            except LookupError:
-                nltk.download(resource, quiet=True)
-
     def chunk(self, pdf_path: str, title: str) -> List[Dict[str, Any]]:
-        import nltk
         import numpy as np
-        self._ensure_nltk()
 
         pages = extract_pages_from_pdf(pdf_path)
         filename = os.path.basename(pdf_path)
@@ -329,7 +373,7 @@ class SemanticChunker(BaseChunker):
         chunk_id = 0
 
         for page in pages:
-            sentences = nltk.sent_tokenize(page["text"])
+            sentences = sent_tokenize_safe(page["text"])   # ← SSL-safe
             if len(sentences) < 2:
                 continue
 
@@ -342,7 +386,6 @@ class SemanticChunker(BaseChunker):
                 sim = self._cosine_sim(current_emb, embeddings[i])
                 if sim >= self.similarity_threshold:
                     current_group.append(sentences[i])
-                    # Running mean embedding for the group
                     current_emb = np.mean(
                         embeddings[max(0, i - len(current_group) + 1): i + 1],
                         axis=0,
@@ -380,7 +423,6 @@ class HybridDoclingChunker(BaseChunker):
     Docling HybridChunker — layout-aware PDF parsing.
     Respects headings, tables, figure captions, and section boundaries.
     NO overlap — structural boundaries are the natural split points.
-    Best fidelity for academic papers.
     Requires: pip install docling
     """
 
