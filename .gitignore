@@ -216,3 +216,27 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# Chroma DB folders
+chroma_db_*/
+chroma_db_fixed/
+chroma_db_fixed_flat/
+chroma_db_paragraph/
+chroma_db_sentence/
+
+# WandB logs
+wandb/
+
+# Optional: ignore binary/index files
+*.bin
+*.pickle
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
