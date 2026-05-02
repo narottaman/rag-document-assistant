@@ -17,7 +17,7 @@ echo "Job: $SLURM_JOB_ID | Node: $SLURMD_NODENAME"
 nvidia-smi
 
 source $HOME/.venv/bin/activate
-export WANDB_API_KEY="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"
+export WANDB_API_KEY="..."
 export HF_HOME="/scratch/ngangada/huggingface_cache"
 
 cd /scratch/ngangada/portfolio/rag-document-assistant
