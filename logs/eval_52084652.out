@@ -1,0 +1,48 @@
+==========================================
+Job ID:    52084652
+Node:      sg007
+Start:     Fri May  1 20:53:57 MST 2026
+==========================================
+Fri May  1 20:53:57 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:41:00.0 Off |                    0 |
+| N/A   29C    P0             60W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+--- Running fixed + HNSW + top_k=10 ---
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+
+✅ {'chunking_method': 'fixed', 'index_type': 'hnsw', 'top_k': 10, 'context_hit_rate': 0.0, 'num_chunks': 1847, 'num_qa_pairs': 100}
+--- Running paragraph + HNSW + top_k=10 ---
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+
+✅ {'chunking_method': 'paragraph', 'index_type': 'hnsw', 'top_k': 10, 'context_hit_rate': 0.0, 'num_chunks': 1983, 'num_qa_pairs': 100}
+--- Running sentence + HNSW + top_k=10 ---
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+
+✅ {'chunking_method': 'sentence', 'index_type': 'hnsw', 'top_k': 10, 'context_hit_rate': 0.0, 'num_chunks': 1498, 'num_qa_pairs': 100}
+
+==========================================
+All eval complete.
+End: Fri May  1 21:09:39 MST 2026
+==========================================
