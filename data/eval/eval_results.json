@@ -1,0 +1,26 @@
+[
+  {
+    "chunking_method": "fixed",
+    "index_type": "flat",
+    "top_k": 5,
+    "context_hit_rate": 0.56,
+    "num_chunks": 1847,
+    "num_qa_pairs": 100
+  },
+  {
+    "chunking_method": "sentence",
+    "index_type": "flat",
+    "top_k": 5,
+    "context_hit_rate": 0.43,
+    "num_chunks": 1498,
+    "num_qa_pairs": 100
+  },
+  {
+    "chunking_method": "paragraph",
+    "index_type": "flat",
+    "top_k": 5,
+    "context_hit_rate": 0.78,
+    "num_chunks": 1983,
+    "num_qa_pairs": 100
+  }
+]

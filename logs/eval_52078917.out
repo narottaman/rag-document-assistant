@@ -1,0 +1,45 @@
+Job: 52078917 | Node: sg031
+Fri May  1 17:07:12 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:C1:00.0 Off |                    0 |
+| N/A   28C    P0             61W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+[eval] fixed | flat | top_k=5
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_fixed
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+
+[eval] sentence | flat | top_k=5
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_sentence
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+
+[eval] paragraph | flat | top_k=5
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_paragraph
+[generator] Loading Qwen/Qwen2.5-3B-Instruct on A100 GPU...
+[generator] ✓ Model ready on A100 GPU
+[skip] semantic not ingested yet
+[skip] hybrid not ingested yet
+
+✅ Saved → data/eval/eval_results.json
+
+📊 Summary (sorted by context_hit_rate):
+  paragraph    | hit_rate=0.780 | chunks=1983
+  fixed        | hit_rate=0.560 | chunks=1847
+  sentence     | hit_rate=0.430 | chunks=1498
