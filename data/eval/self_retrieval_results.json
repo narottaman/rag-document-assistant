@@ -1,0 +1,62 @@
+[
+  {
+    "chunking_method": "fixed",
+    "index_type": "flat",
+    "top_k": 10,
+    "context_hit_rate": 1.0,
+    "avg_latency_ms": 12.514491081237793,
+    "num_chunks": 1847,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  },
+  {
+    "chunking_method": "fixed",
+    "index_type": "hnsw",
+    "top_k": 10,
+    "context_hit_rate": 1.0,
+    "avg_latency_ms": 5.852928161621094,
+    "num_chunks": 1847,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  },
+  {
+    "chunking_method": "sentence",
+    "index_type": "flat",
+    "top_k": 10,
+    "context_hit_rate": 1.0,
+    "avg_latency_ms": 11.01137638092041,
+    "num_chunks": 1498,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  },
+  {
+    "chunking_method": "sentence",
+    "index_type": "hnsw",
+    "top_k": 10,
+    "context_hit_rate": 1.0,
+    "avg_latency_ms": 5.703537464141846,
+    "num_chunks": 1498,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  },
+  {
+    "chunking_method": "paragraph",
+    "index_type": "flat",
+    "top_k": 10,
+    "context_hit_rate": 1.0,
+    "avg_latency_ms": 13.588006496429443,
+    "num_chunks": 1983,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  },
+  {
+    "chunking_method": "paragraph",
+    "index_type": "hnsw",
+    "top_k": 10,
+    "context_hit_rate": 0.99,
+    "avg_latency_ms": 5.729701519012451,
+    "num_chunks": 1983,
+    "num_eval_samples": 100,
+    "eval_type": "self_retrieval"
+  }
+]

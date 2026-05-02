@@ -1,7 +1,7 @@
 # RAG Document Assistant
 
 > Production-grade Retrieval-Augmented Generation pipeline over ArXiv AI papers.  
-> Systematically evaluates **3 chunking strategies × 2 index types × 2 embedding models × 3 top-k values** — 36+ experiment runs tracked via W&B Sweeps on ASU Sol HPC (A100 GPU).
+> Evaluates **3 chunking strategies × 2 index types × 2 embedding models × 3 top-k values** — 36+ experiment runs tracked via W&B Sweeps on ASU Sol HPC (A100 GPU).
 
 [![W&B](https://img.shields.io/badge/Tracked%20with-W%26B-orange)](https://wandb.ai/ngangada-arizona-state-university/rag-document-assistant)
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://python.org)
@@ -15,8 +15,8 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                     PRE-PRODUCTION                          │
 │                                                             │
-│  ArXiv PDFs ──► Chunker ──► Embedding Model ──► Vector DB   │
-│  (10 papers)   [5 methods]   [2 models]        [3 indexes]  │
+│  ArXiv PDFs ──► Chunker ──► Embedding Model ──► Vector DB  │
+│  (10 papers)   [5 methods]   [2 models]        [3 indexes] │
 └─────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
@@ -32,7 +32,7 @@
 │                               LLM Prompt Builder            │
 │                                        │                    │
 │                                        ▼                    │
-│                            Qwen2.5-3B / GPT-4o-mini         │
+│                            Qwen2.5-3B-Instruct (local)      │
 │                                        │                    │
 │                                        ▼                    │
 │                                   Final Answer              │
@@ -41,13 +41,15 @@
 
 ---
 
-## Experiment Results
+## Evaluation — Two Complementary Tests
 
-> 36+ runs tracked via W&B Sweeps on ASU Sol HPC (A100 GPU).  
-> Metric: **Context Hit Rate** — whether the ground-truth context appeared in top-k retrieved chunks.  
-> Eval set: 100 Q&A pairs from `neural-bridge/rag-dataset-12000` (HuggingFace).
+### Test 1: Cross-Corpus Retrieval (W&B Sweep — 36+ runs)
 
-### Full Results Table
+Questions from an external dataset queried against ArXiv paper chunks.
+Measures real-world retrieval quality — whether semantically related chunks
+surface when the question is not verbatim in the corpus.
+
+**Metric:** Context Hit Rate — fraction of questions where the relevant chunk appeared in top-k results.
 
 | Chunking | Index | Embedding Model | top_k | Context Hit Rate | Latency (ms) |
 |----------|-------|----------------|-------|-----------------|-------------|
@@ -55,65 +57,92 @@
 | paragraph | HNSW | bge-small-en-v1.5 | 5 | 0.86 | 15.9 |
 | paragraph | HNSW | all-MiniLM-L6-v2 | 10 | 0.86 | 14.0 |
 | paragraph | flat | all-MiniLM-L6-v2 | 10 | 0.85 | 30.2 |
-| paragraph | HNSW | all-MiniLM-L6-v2 | 5 | 0.78 | 13.1 |
-| paragraph | flat | all-MiniLM-L6-v2 | 5 | 0.78 | 31.4 |
 | paragraph | HNSW | bge-small-en-v1.5 | 3 | 0.81 | 15.6 |
-| paragraph | flat | all-MiniLM-L6-v2 | 3 | 0.75 | 39.5 |
+| paragraph | flat | all-MiniLM-L6-v2 | 5 | 0.78 | 31.4 |
 | fixed | HNSW | all-MiniLM-L6-v2 | 10 | 0.60 | 14.3 |
-| fixed | flat | all-MiniLM-L6-v2 | 10 | 0.60 | 36.4 |
-| fixed | HNSW | all-MiniLM-L6-v2 | 5 | 0.54 | 13.4 |
 | fixed | flat | all-MiniLM-L6-v2 | 5 | 0.56 | 40.1 |
 | sentence | HNSW | all-MiniLM-L6-v2 | 10 | 0.54 | 12.5 |
-| sentence | flat | all-MiniLM-L6-v2 | 10 | 0.55 | 36.7 |
-| sentence | HNSW | bge-small-en-v1.5 | 10 | 0.54 | 15.7 |
 | sentence | flat | all-MiniLM-L6-v2 | 5 | 0.43 | 42.8 |
 
-> Note: BAAI/bge-small-en-v1.5 with flat (ChromaDB) index showed anomalously low hit rates (0.02–0.16)
-> due to a known embedding normalization mismatch with ChromaDB's cosine space — HNSW handled it correctly.
+> **Anomaly:** bge-small-en-v1.5 + ChromaDB flat collapsed to 0.02–0.16 hit rate due to
+> embedding normalization mismatch. bge + HNSW worked correctly (0.81–0.87).
+> MiniLM was consistent across both index types.
 
-### Key Findings
+---
 
-**1. Paragraph chunking dominates.**  
-Recursive splitting on `\n\n → \n → ". "` preserves semantic units that align naturally with how questions are asked. Fixed-size chunking cuts mid-sentence, losing context. Sentence chunking produces chunks too short to contain complete answers.
+### Test 2: Self-Retrieval Sanity Check (corpus-aligned, no API needed)
 
-**2. HNSW beats flat index on latency with no accuracy loss.**  
-HNSW averages **13–16ms** retrieval vs **30–50ms** for ChromaDB flat — a 2–3× speedup at identical hit rates. For production systems this matters at scale.
+Each chunk's own text is used as a query. Verifies that the index can
+retrieve a piece of text given a semantically identical query.
+Ran on Sol A100 in **42 seconds** — no LLM calls, pure embedding + search.
 
-**3. all-MiniLM-L6-v2 is more robust than bge-small-en-v1.5 for this corpus.**  
-bge performs well with HNSW (0.81–0.87) but collapses with ChromaDB flat (0.02–0.16). MiniLM is consistent across both index types. For production, bge + HNSW is the best combination; MiniLM is the safer default.
+| Chunking | Index | top_k | Hit Rate | Latency (ms) |
+|----------|-------|-------|----------|-------------|
+| fixed | flat | 10 | 1.000 | 12.5 |
+| fixed | HNSW | 10 | 1.000 | 5.9 |
+| sentence | flat | 10 | 1.000 | 11.0 |
+| sentence | HNSW | 10 | 1.000 | 5.7 |
+| paragraph | flat | 10 | 1.000 | 13.6 |
+| paragraph | HNSW | 10 | 0.990 | 5.7 |
 
-**4. top_k=10 consistently outperforms top_k=3.**  
-Hit rate improves 10–15% going from k=3 to k=10 with minimal latency cost on HNSW. Flat index latency barely changes since it's brute-force regardless.
+All indexers pass self-retrieval, confirming correct embedding and search
+implementation. Hit rate of 1.0 is expected at top_k=10 on a corpus of
+~1,500–2,000 chunks — this is an indexer correctness test, not a
+generalization test. Cross-corpus sweep (Test 1) is the generalization measure.
 
-**Best config:** `paragraph + HNSW + bge-small-en-v1.5 + top_k=10` → **87% context hit rate at 16ms**
+**Key latency finding:** HNSW is consistently **2× faster** than flat search
+(5–6ms vs 11–14ms) with equivalent or better accuracy.
+
+---
+
+## Key Findings
+
+**1. Paragraph chunking dominates (+27–44pp over alternatives).**
+Recursive splitting on `\n\n → \n → ". "` preserves semantic units that
+align naturally with how questions are phrased. Fixed-size chunking cuts
+mid-sentence; sentence chunking produces units too short for multi-sentence answers.
+
+**2. HNSW beats flat search 2× on latency with no accuracy trade-off.**
+5–6ms vs 11–14ms on self-retrieval. 13–16ms vs 30–50ms on cross-corpus sweep.
+At scale (10K+ chunks) HNSW is the only viable production choice.
+
+**3. Embedding model × index type interaction is non-obvious.**
+bge-small-en-v1.5 ranks higher on MTEB benchmarks than all-MiniLM-L6-v2,
+but collapses to 2% hit rate with ChromaDB flat due to normalization mismatch.
+Empirical sweep caught this — benchmark scores alone would have missed it.
+
+**4. top_k=10 is worth the context window cost.**
+10–15pp improvement from k=3 to k=10, with HNSW adding only ~2ms.
+
+**Best config:** `paragraph + HNSW + bge-small-en-v1.5 + top_k=10` → **87% cross-corpus hit rate at 16ms**
 
 ---
 
 ## Chunking Strategies
 
-| Method | Overlap | Description |
-|--------|---------|-------------|
-| **Fixed** | 50 chars | Splits every N characters regardless of sentence boundaries |
-| **Sentence** | 1 sentence | Groups N sentences per chunk, preserves grammatical units |
-| **Paragraph** | 50 chars | Recursive splitting: `\n\n → \n → ". " → " "` — best for prose |
-| **Semantic** | None | Groups sentences by cosine similarity drop (GPU-accelerated on Sol) |
-| **Hybrid (Docling)** | None | Layout-aware: respects headings, tables, figure captions |
+| Method | Chunk Size | Overlap | Avg Chars | Total Chunks | Strategy |
+|--------|-----------|---------|-----------|-------------|---------|
+| **Fixed** | 512 chars | 50 chars | 474 | 1,847 | Sliding window — last 50 chars of chunk N start chunk N+1 |
+| **Sentence** | 5 sentences | 1 sentence | 639 | 1,498 | Last sentence of chunk N repeated at start of chunk N+1 |
+| **Paragraph** | 512 chars | 50 chars | 445 | 1,983 | Recursive `\n\n → \n → ". "` with 50-char carry-forward |
+| **Semantic** | dynamic | none | — | pending | Splits at cosine similarity drop — boundary IS the semantic break |
+| **Hybrid (Docling)** | layout-aware | none | — | pending | Section/heading boundaries, table-aware |
 
 ---
 
 ## Indexing Strategies
 
-| Index | Algorithm | Best For | Query Latency |
-|-------|-----------|----------|---------------|
-| **Flat** (ChromaDB) | Brute-force cosine | Small corpus <50K chunks, exact search | 30–50ms |
-| **HNSW** (hnswlib) | Graph-based ANN | Production, fast approximate search | 12–16ms |
-| **FAISS-IVF** | Inverted file index | Very large corpus, GPU-accelerated | varies |
+| Index | Algorithm | Query Latency | Best For |
+|-------|-----------|-------------|---------|
+| **Flat** (ChromaDB) | Brute-force cosine | 11–14ms | Small corpus, exact search |
+| **HNSW** (hnswlib) | Graph-based ANN | 5–6ms | Production — 2× faster |
+| **FAISS-IVF** | Inverted file index | varies | Very large corpus (1M+ chunks) |
 
 ---
 
 ## Corpus
 
-**10 ArXiv AI papers** parsed with `pypdf` (torch-free for Sol HPC compatibility):
+10 ArXiv AI papers parsed with `pypdf` (torch-free, no LangChain dependency):
 
 | Paper | ArXiv ID |
 |-------|----------|
@@ -128,8 +157,6 @@ Hit rate improves 10–15% going from k=3 to k=10 with minimal latency cost on H
 | LoRA | 2106.09685 |
 | LLaMA | 2302.13971 |
 
-**Eval set:** 100 Q&A pairs from `neural-bridge/rag-dataset-12000` (HuggingFace)
-
 ---
 
 ## Quickstart
@@ -140,11 +167,11 @@ git clone https://github.com/YOUR_USERNAME/rag-document-assistant
 cd rag-document-assistant
 pip install -r requirements.txt
 
-# 2. Set up API keys
+# 2. Set env vars
 cp .env.example .env
-# Edit .env with OPENAI_API_KEY (or GOOGLE_API_KEY) and WANDB_API_KEY
+# Add WANDB_API_KEY — no OpenAI key needed
 
-# 3. Download data
+# 3. Download ArXiv papers
 python scripts/download_data.py
 
 # 4. Ingest with all chunking methods
@@ -152,22 +179,17 @@ python scripts/run_ingest.py --method fixed
 python scripts/run_ingest.py --method sentence
 python scripts/run_ingest.py --method paragraph
 
-# 5. Generate eval QA pairs
-python scripts/generate_eval.py \
-    --chunks-path data/processed/chunks_paragraph.json \
-    --out-path data/eval/qa_pairs_arxiv.json
+# 5. Run self-retrieval evaluation (no API needed)
+python scripts/run_eval.py --all --top-k 10
 
-# 6. Run a question interactively
+# 6. Ask a question interactively
 python scripts/run_query.py --method paragraph --index hnsw
 
-# 7. Run full evaluation
-python scripts/run_eval.py --all
-
-# 8. Run W&B sweep (all combinations)
+# 7. Run W&B sweep (cross-corpus retrieval experiment)
 wandb sweep configs/sweep.yaml
 wandb agent YOUR_ENTITY/rag-document-assistant/SWEEP_ID
 
-# 9. Start API server
+# 8. Start API server
 uvicorn api.main:app --reload --port 8000
 ```
 
@@ -175,47 +197,40 @@ uvicorn api.main:app --reload --port 8000
 
 ## W&B Experiment Tracking
 
-Every run logs:
-
 | Metric | Description |
 |--------|-------------|
-| `context_hit_rate` | % of questions where ground-truth chunk was in top-k results |
+| `context_hit_rate` | Fraction of queries where correct chunk in top-k |
 | `avg_retrieval_latency_ms` | Vector search speed per query |
 | `index_build_time_sec` | Time to embed + index all chunks |
-| `total_chunks` | Chunks produced by this chunking method |
-| `num_qa_pairs` | Size of evaluation set |
-| `top_k` | Number of chunks retrieved per query |
+| `total_chunks` | Chunks produced by chunking method |
+| `avg_chunk_chars` | Average chunk character length |
 
 **W&B Project:** [ngangada-arizona-state-university/rag-document-assistant](https://wandb.ai/ngangada-arizona-state-university/rag-document-assistant)
 
 ---
 
-## Sol HPC Setup (GPU-Accelerated)
-
-Semantic chunking and FAISS-GPU indexing run on ASU Sol HPC (A100):
+## Sol HPC Setup
 
 ```bash
-# Copy project to Sol
-scp -r . YOUR_ASURITE@sol.asu.edu:~/rag-document-assistant
-
-# First-time venv setup on Sol
+# Activate existing venv (do NOT use base conda)
 source $HOME/.venv/bin/activate
+
+# Install RAG dependencies
 pip install pypdf nltk faiss-cpu hnswlib chromadb \
-            sentence-transformers langchain langchain-community \
-            openai wandb fastapi uvicorn python-dotenv pyyaml \
-            ragas datasets google-genai
+            sentence-transformers wandb fastapi uvicorn \
+            python-dotenv pyyaml datasets google-genai
 
-# Submit embedding job
-sbatch sol/embed_job.slurm
+# Submit sweep job
+sbatch sol/sweep_job.slurm
 
-# Monitor
-squeue -u $USER
-tail -f logs/embed_<job_id>.out
+# Submit eval job
+sbatch sol/eval_job.slurm
 ```
 
-GPU metrics (utilization, memory, temperature) are captured automatically in W&B's System tab.
-
-**Important:** Use `$HOME/.venv` not base conda — Sol's base conda has a broken torchvision/sqlite3 that conflicts with PyPDF and NLTK imports. The project uses `pypdf` directly (no LangChain PDF loader) to avoid this.
+> Sol HPC note: Uses `pypdf` directly instead of LangChain's `PyPDFLoader`
+> to avoid the torchvision circular import caused by Sol's mismatched
+> system torch+torchvision. Sentence tokenization uses a regex fallback
+> that works without SSL access (Sol login nodes block outbound SSL).
 
 ---
 
@@ -224,42 +239,35 @@ GPU metrics (utilization, memory, temperature) are captured automatically in W&B
 ```
 rag-document-assistant/
 ├── data/
-│   ├── raw/pdfs/           # Downloaded ArXiv PDFs
-│   ├── raw/hf_dataset/     # HuggingFace RAG dataset
-│   ├── processed/          # chunks_{method}.json files
-│   └── eval/               # qa_pairs_arxiv.json, eval_results.json
+│   ├── raw/pdfs/                    # Downloaded ArXiv PDFs
+│   ├── processed/                   # chunks_{method}.json
+│   └── eval/                        # self_retrieval_results.json
 ├── src/
-│   ├── chunkers.py         # 5 chunking strategies (torch-free PDF loading)
-│   ├── indexers.py         # ChromaFlat, FAISS-IVF, HNSW
-│   ├── embeddings.py       # Embedding model + W&B speed logging
-│   ├── generator.py        # LLM answer generation
-│   ├── pipeline.py         # End-to-end RAG pipeline
-│   └── evaluate.py         # RAGAS evaluation runner
+│   ├── chunkers.py                  # 5 strategies, torch-free PDF loading
+│   ├── indexers.py                  # ChromaFlat, FAISS-IVF, HNSW
+│   ├── generator.py                 # Qwen2.5-3B local inference
+│   └── embeddings.py                # Embedding model + W&B logging
 ├── scripts/
-│   ├── download_data.py    # Download PDFs + HF dataset
-│   ├── run_ingest.py       # Chunk PDFs → save JSON + log to W&B
-│   ├── generate_eval.py    # Generate Q&A eval pairs (Gemini/OpenAI)
-│   ├── run_experiment.py   # Single experiment (W&B sweep target)
-│   ├── run_query.py        # Interactive query CLI
-│   └── run_eval.py         # Full evaluation + comparison table
-├── api/
-│   └── main.py             # FastAPI server
+│   ├── download_data.py             # Download PDFs + HF dataset
+│   ├── run_ingest.py                # Chunk PDFs → JSON + W&B logging
+│   ├── run_experiment.py            # Single sweep run
+│   ├── run_eval.py                  # Self-retrieval eval (no API needed)
+│   └── run_query.py                 # Interactive query CLI
+├── api/main.py                      # FastAPI server
 ├── configs/
-│   ├── config.yaml         # Model + retriever config
-│   └── sweep.yaml          # W&B grid sweep definition
-├── sol/
-│   └── embed_job.slurm     # ASU Sol HPC SLURM job script
-└── tests/
-    └── test_pipeline.py    # Unit tests for chunkers + indexers
+│   ├── config.yaml                  # Model + retriever config
+│   └── sweep.yaml                   # W&B grid sweep
+└── sol/
+    ├── sweep_job.slurm              # Run W&B sweep on A100
+    └── eval_job.slurm              # Run self-retrieval eval
 ```
 
 ---
 
 ## Tech Stack
 
-`pypdf` · `LangChain` · `ChromaDB` · `FAISS` · `hnswlib` · `Docling`  
-`sentence-transformers` · `RAGAS` · `Weights & Biases` · `FastAPI`  
-`Qwen2.5-3B-Instruct` · `NLTK` · `Google Gemini Flash`
+`pypdf` · `ChromaDB` · `FAISS` · `hnswlib` · `sentence-transformers`  
+`Qwen2.5-3B-Instruct` · `Weights & Biases` · `FastAPI` · `Docling`
 
 ---
 

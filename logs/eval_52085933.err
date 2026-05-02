@@ -1,0 +1,12 @@
+usage: run_eval.py [-h] [--method {fixed,sentence,paragraph,semantic,hybrid}]
+                   [--index {flat,faiss,hnsw}] [--top-k TOP_K]
+                   [--n-samples N_SAMPLES] [--all]
+run_eval.py: error: unrecognized arguments: --qa-path data/eval/hf_qa_subset.json
+usage: run_eval.py [-h] [--method {fixed,sentence,paragraph,semantic,hybrid}]
+                   [--index {flat,faiss,hnsw}] [--top-k TOP_K]
+                   [--n-samples N_SAMPLES] [--all]
+run_eval.py: error: unrecognized arguments: --qa-path data/eval/hf_qa_subset.json
+usage: run_eval.py [-h] [--method {fixed,sentence,paragraph,semantic,hybrid}]
+                   [--index {flat,faiss,hnsw}] [--top-k TOP_K]
+                   [--n-samples N_SAMPLES] [--all]
+run_eval.py: error: unrecognized arguments: --qa-path data/eval/hf_qa_subset.json

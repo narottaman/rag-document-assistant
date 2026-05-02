@@ -1,0 +1,59 @@
+Job: 52085985 | Node: sg007
+Fri May  1 21:30:03 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:41:00.0 Off |                    0 |
+| N/A   29C    P0             60W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[eval] fixed | flat | top_k=10
+[eval] Indexing 1847 chunks, testing 100 samples...
+[ChromaFlat] Indexed 1847 chunks → ./chroma_db_eval_fixed_flat
+[eval] context_hit_rate=1.000 | latency=12.5ms
+[eval] fixed | hnsw | top_k=10
+[eval] Indexing 1847 chunks, testing 100 samples...
+[HNSW] Indexed 1847 chunks (M=16, ef_construction=200)
+[eval] context_hit_rate=1.000 | latency=5.9ms
+[eval] sentence | flat | top_k=10
+[eval] Indexing 1498 chunks, testing 100 samples...
+[ChromaFlat] Indexed 1498 chunks → ./chroma_db_eval_sentence_flat
+[eval] context_hit_rate=1.000 | latency=11.0ms
+[eval] sentence | hnsw | top_k=10
+[eval] Indexing 1498 chunks, testing 100 samples...
+[HNSW] Indexed 1498 chunks (M=16, ef_construction=200)
+[eval] context_hit_rate=1.000 | latency=5.7ms
+[eval] paragraph | flat | top_k=10
+[eval] Indexing 1983 chunks, testing 100 samples...
+[ChromaFlat] Indexed 1983 chunks → ./chroma_db_eval_paragraph_flat
+[eval] context_hit_rate=1.000 | latency=13.6ms
+[eval] paragraph | hnsw | top_k=10
+[eval] Indexing 1983 chunks, testing 100 samples...
+[HNSW] Indexed 1983 chunks (M=16, ef_construction=200)
+[eval] context_hit_rate=0.990 | latency=5.7ms
+[skip] semantic not ingested yet
+[skip] hybrid not ingested yet
+
+✅ Saved → data/eval/self_retrieval_results.json
+
+📊 Self-Retrieval Results (sorted by hit_rate):
+  Method       Index  top_k  Hit Rate   Latency ms
+  ----------------------------------------------------
+  fixed        flat   10     1.000      12.5
+  fixed        hnsw   10     1.000      5.9
+  sentence     flat   10     1.000      11.0
+  sentence     hnsw   10     1.000      5.7
+  paragraph    flat   10     1.000      13.6
+  paragraph    hnsw   10     0.990      5.7
