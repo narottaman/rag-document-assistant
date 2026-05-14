@@ -66,7 +66,7 @@ def chat(message: str, history: list) -> str:
 
 # ── Gradio UI ─────────────────────────────────────────────────────────────────
 
-with gr.Blocks(theme=gr.themes.Soft(), title="RAG Document Assistant") as demo:
+with gr.Blocks(title="RAG Document Assistant") as demo:
     gr.Markdown("""
     # 📚 RAG Document Assistant
     Ask questions about 10 ArXiv AI papers:
@@ -84,13 +84,13 @@ with gr.Blocks(theme=gr.themes.Soft(), title="RAG Document Assistant") as demo:
             "How does BERT differ from GPT in its training objective?",
             "What is the U-Net architecture used for?",
         ],
-        retry_btn=None,
-        undo_btn=None,
     )
 
+    
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
-        share=False,   # set True to get a public gradio.live URL
+        share=False,
+        theme=gr.themes.Soft(),
     )
