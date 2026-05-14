@@ -20,11 +20,13 @@ services:
     ports:
       - "7860:7860"
     volumes:
-      - ./data:/app/data              # your chunks JSON files
-      - ./configs:/app/configs        # config.yaml
-      - ./src:/app/src                # source code (live reload)
+      - ./data:/app/data
+      - ./configs:/app/configs
+      - ./src:/app/src
+      - ./app:/app/app
     environment:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - WANDB_API_KEY=${WANDB_API_KEY}
       - CHUNKS_PATH=data/processed/chunks_paragraph.json
       - EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
       - TOP_K=5
