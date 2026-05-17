@@ -1,19 +1,18 @@
 # docker-compose.yml
 #
 # Three services:
-#   chat     — Gradio live chat (http://localhost:7860)
-#   api      — FastAPI backend  (http://localhost:8000)
-#   pipeline — ArXiv paper watcher (runs once then exits)
+#   chat     -- Gradio live chat (http://localhost:7860)
+#   api      -- FastAPI backend  (http://localhost:8000)
+#   pipeline -- ArXiv paper watcher (runs once then exits)
 #
 # Run everything:  docker compose up
 # Chat only:       docker compose up chat
 # Pipeline only:   docker compose run pipeline
-
-version: "3.9"
+# Stop:            docker compose down
 
 services:
 
-  # ── Live Chat UI ────────────────────────────────────────────────────────────
+  # Live Chat UI
   chat:
     build: .
     command: python app/chat.py
@@ -24,15 +23,15 @@ services:
       - ./configs:/app/configs
       - ./src:/app/src
       - ./app:/app/app
+    env_file:
+      - .env
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - WANDB_API_KEY=${WANDB_API_KEY}
       - CHUNKS_PATH=data/processed/chunks_paragraph.json
       - EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
       - TOP_K=5
     restart: unless-stopped
 
-  # ── FastAPI Backend ─────────────────────────────────────────────────────────
+  # FastAPI Backend
   api:
     build: .
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
@@ -43,12 +42,11 @@ services:
       - ./configs:/app/configs
       - ./src:/app/src
       - ./api:/app/api
-    environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - WANDB_API_KEY=${WANDB_API_KEY}
+    env_file:
+      - .env
     restart: unless-stopped
 
-  # ── Data Pipeline ───────────────────────────────────────────────────────────
+  # ArXiv Data Pipeline (runs once and exits)
   pipeline:
     build: .
     command: python pipeline/arxiv_watcher.py
@@ -57,9 +55,9 @@ services:
       - ./configs:/app/configs
       - ./src:/app/src
       - ./pipeline:/app/pipeline
+    env_file:
+      - .env
     environment:
-      - WANDB_API_KEY=${WANDB_API_KEY}
       - WANDB_ENTITY=ngangada-arizona-state-university
       - CHROMA_PATH=/app/data/chroma_pipeline
-    # Pipeline runs once and exits — use cron or Prefect for scheduling
     restart: "no"
